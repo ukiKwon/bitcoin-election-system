@@ -1,0 +1,10 @@
+addnode=13.124.212.105
+addnode=172.31.7.84
+
+rpcuser=uki408
+rpcpassword=7bLjxV1CKhNJmdxTUMxTpF4vEemWCp49kMX9CwvZabYi
+
+
+# You can even add multiple entries of these to the server conf file, and client can use any of them:
+rpcauth=uki408:6a44d5a97d2817f9d8042298f376540$7b99d6bb977e86d78a6b7bec9d053d13083ecfc26841ef1b4f5268c1cf229245
+
