@@ -3,8 +3,8 @@
 # writer : uki408
 
 # The new
-- start_kbkd.sh
-- stop_kbkd.sh
+- /config/start_kbkd.sh
+- /config/stop_kbkd.sh
 
 # How to use? 
 - As you see, the shell command is a simple yet. It is based on regtest in bitcoind. So this shell just use it.
@@ -17,3 +17,6 @@
 
 - And kind of configuration things.
 
+# NOTICE
+
+- Out project is based on bitcoin.So The first you have to do is install bitcoin. I hope you make it. Thank you
