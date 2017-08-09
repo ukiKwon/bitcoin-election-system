@@ -1,5 +1,5 @@
-# KBK_ELECTION
-# last update : 2017--08-09
+# project : KBK_ELECTION
+# last update : 2017-08-09
 # writer : uki408
 
 # The new
