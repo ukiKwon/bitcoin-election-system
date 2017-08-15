@@ -8,11 +8,13 @@ $u_reg = isset($_POST['u_reg']) ? $_POST['u_reg'] : '';
 $u_sex = isset($_POST['u_sex']) ? $_POST['u_sex'] : '';
 $u_age = isset($_POST['u_age']) ? $_POST['u_age'] : '';
 $u_region = isset($_POST['u_region']) ? $_POST['u_region'] : '';
+$u_addr = isset($_POST['u_addr']) ? $_POST['u_addr'] : '';
 $u_date = date("Y-m-d h:i:s");
+$u_candi = isset($_POST['u_candi']) ? $_POST['u_candi'] : '';
 
 if ($u_name !="" and $u_reg !="" and $u_sex !="" and $u_age !="" and $u_region !=""){
 
-    $sql = "insert into kdb(name, regisid, sex, age,region, vote_date, vote_chk) values('$u_name','$u_reg','$u_sex','$u_age','$u_region','$u_date',DEFAULT(vote_chk))";
+    $sql = "insert into kdb(name, regisid, sex, age, region, address, vote_date, vote_chk, candidate) values('$u_name','$u_reg','$u_sex','$u_age','$u_region','$u_date',DEFAULT(vote_chk), '$u_candi')";
     $result = mysqli_query($link,$sql);
 
     if($result){
@@ -46,6 +48,8 @@ if (!$kbk){
         sex: <input type = "text" name = "u_sex"/>
         age: <input type = "text" name = "u_age" />
         region: <input type = "text" name = "u_region" />
+        address : <input type="text" name= "u_addr"/>
+        IsCandidate? :<input type ="text" name="u_candi"/>
         <input type = "submit" />
       </form>
 
@@ -54,4 +58,4 @@ if (!$kbk){
 <?php
 }
 ?>
-~                                                        
+~

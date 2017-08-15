@@ -1,6 +1,8 @@
 # project : KBK_ELECTION
-# last update : 2017-08-09
+# last update : 2017-08-15
 # writer : uki408
+
+# Not completed yet.
 
 # The new
 - /config/start_kbkd.sh
