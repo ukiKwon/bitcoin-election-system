@@ -4,9 +4,8 @@
 
 # Not completed yet.
 
-# The new
-- /config/start_kbkd.sh
-- /config/stop_kbkd.sh
+# The New
+- Issues are registered!!! Check these out!
 
 # How to use? 
 - As you see, the shell command is a simple yet. It is based on regtest in bitcoind. So this shell just use it.
