@@ -1,5 +1,5 @@
 <?php
-include("caDB_config.php");
+include("db_config.php");
 
 session_start();
 
@@ -9,10 +9,12 @@ $u_sex = isset($_POST['u_sex']) ? $_POST['u_sex'] : '';
 $u_age = isset($_POST['u_age']) ? $_POST['u_age'] : '';
 $u_region = isset($_POST['u_region']) ? $_POST['u_region'] : '';
 $u_date = date("Y-m-d h:i:s");
+$u_pkey = isset($_POST['u_pkey']) ? $_POST['u_pkey'] : '';
+$u_pkey =trim($u_pkey);
 
-if ($u_name !="" and $u_reg !="" and $u_sex !="" and $u_age !="" and $u_region !=""){
+if ($u_name !="" and $u_reg !="" and $u_sex !="" and $u_age !="" and $u_region !="" and $u_pkey !=""){
 
-    $sql = "insert into kdb(name, regisid, sex, age, region, address, vote_date, vote_chk, ) values('$u_name','$u_reg','$u_sex','$u_age','$u_region','$u_date',DEFAULT(vote_chk))";
+    $sql = "insert into kdb(name, regisid, sex, age, region, login_date, pubkey ) values('$u_name','$u_reg','$u_sex','$u_age','$u_region','$u_date','$u_pkey')";
     $result = mysqli_query($link,$sql);
 
     if($result){
@@ -41,11 +43,12 @@ if (!$kbk){
 <html>
    <body>
       <form action="<?php $_PHP_SELF ?>" method="POST">
-        name: <input type = "text" name = "u_name" />
-        registerID: <input type = "text" name = "u_reg" />
-        sex: <input type = "text" name = "u_sex"/>
-        age: <input type = "text" name = "u_age" />
-        region: <input type = "text" name = "u_region" />
+        name :<input type = "text" name = "u_name" />
+        register ID :<input type = "text" name = "u_reg" />
+        sex :<input type = "text" name = "u_sex"/>
+        age :<input type = "text" name = "u_age" />
+        regident :<input type = "text" name = "u_region" />
+        pubkey :<input type = "text" name ="u_pkey"/>
         <input type = "submit" />
       </form>
 
@@ -54,4 +57,4 @@ if (!$kbk){
 <?php
 }
 ?>
-~
+
