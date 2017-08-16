@@ -1,5 +1,5 @@
 <?php
-include("db_config.php");
+include("caDB_config.php");
 
 session_start();
 
