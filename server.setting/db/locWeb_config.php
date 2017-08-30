@@ -4,8 +4,8 @@ ini_set('display_errors',1);
 
 $db_host='localhost';
 $db_user='root';
-$db_pwd='k46s13u13';
-$db_name='kbkweb';
+$db_pwd='Flower5wantnight';
+$db_name='kwebdb';
 
 $link = mysqli_connect($db_host, $db_user, $db_pwd, $db_name);
 if (!$link)
@@ -18,3 +18,4 @@ if (!$link)
 
 mysqli_set_charset($link,"utf8");
 ?>
+
