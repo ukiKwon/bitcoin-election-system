@@ -1,6 +1,6 @@
 <?php
-
-echo "<h4>WELCOME</h4>";
+# 
+# js done
 
 ?>
 <html>
