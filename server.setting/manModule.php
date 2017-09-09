@@ -1,6 +1,22 @@
 <?php
-$value=isset($_POST['candidate'])? $_POST['candidate'] : "NO RETURN";
-echo "candidate :".$value."</br>";
+
+$can_arr = array();
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'syncdb':
+            syncdb();
+            break;
+        case 'concan':
+            concan();
+            break;
+        case 'gen':
+            gen();
+            break;
+    }
+}
+if (isset($_POST['candidate'])) {
+   array_push($can_arr, $_POST['candidate']);
+}
 
 function syncdb() {
     $message="The select function is called.";
@@ -24,28 +40,10 @@ function concan() {
     echo "</form>\n";
     exit;
 }
-function genaddr() {
-    global $value;
+function gen() {
     $message="The gen function is called.";
-    echo $message."</br>";
     #echo "The gen function is called.";
-    echo "candidateList : ".$value."</br>";
-    system("../system.op/genaddr.sh $value");
+    system("/var/www/html/KBK_election/system.op/getaddressbycandi.sh '$can_arr'");
     exit;
 }
-
- genaddr();
-  //echo "value: ".$value;
-
-/*
-  echo "<html>\n";
-  echo "<head>\n";
-  echo "</head>\n";
-  echo "<body onload='document.form1.submit();'>\n";
-  echo "<form name='form1' method='post' action='manager.php'>\n";
-  echo "<input type='hidden' name='result' value='$value'>\n";
-  echo "</form>\n";
-  echo "</body>\n";
-  echo "</html>";
-  */
 ?>
