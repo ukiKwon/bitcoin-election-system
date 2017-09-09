@@ -1,7 +1,5 @@
 <?php
-
-echo "Hi"
-
+	/* region code*/
 ?>
 <html>
 <head><h1>This is a page for a voter</h1></head>
