@@ -1,4 +1,5 @@
 <?php
+session_start();
 $list_can = array();
 $listCan_str="";
 
@@ -16,15 +17,30 @@ include("./db/locWeb_config.php");
 
 global $list_can;
 global $listCan_str;
+
+function zeroFilter($list_can)
+{
+  global $list_can;
+  foreach ($list_can as $key => $val) {
+      if($val == '')
+      {
+          unset($list_can[$key]);
+      }
+  }
+}
 function setListcanStr()
 {
     global $list_can, $listCan_str;
     if(!count($list_can))
+    {
       echo "The candidate list is empty now"."</br>";
-    for($i=0; $i<count($list_can); ++$i) {
-      $listCan_str.=($list_can[$i]." ");
+    } else
+    {
+      for($i=0; $i<count($list_can); ++$i) {
+        $listCan_str.=($list_can[$i]." ");
+      }
+      echo "Candidates are { ".$listCan_str." }</br>";
     }
-    echo "Candidates are { ".$listCan_str." }</br>";
 }
 function sizeOfpost()
 {
@@ -41,7 +57,8 @@ function sizeOfpost()
 
         } else if($count == 0)
         {
-          $count=count($list_can)-1;
+          zeroFilter($list_can);
+          $count=count($list_can);
         } else{;}
         $chk = isset($_POST[$i++]);
     }
@@ -67,9 +84,9 @@ echo " Now The number of candidates registered is ".$szPost."</br>";
 <body>
 	<ul>
     <form method="post" action="manModule.php">
-	  synchronize kbkdb-kwebdb <input type="submit" id="syncdb" name="syncdb" value="syncdb"/></br>
-	  confirm candidate <input type="submit" id="concan" name="concan" value="concan"/></br>
-    generate candidate address <input type="submit" id="concan" name="concan" value="genaddr"/></br>
+	  synchronize kbkdb-kwebdb <input type="submit" id="syncdb" name="action" value="syncdb"/></br>
+	  confirm candidate <input type="submit" id="concan" name="action" value="concan"/></br>
+    generate candidate address <input type="submit" id="concan" name="action" value="genaddr"/></br>
     <input type="hidden" id="candidate" name="candidate" value="<?php echo $listCan_str; ?>"/></br>
   </form>
   </ul>

@@ -1,36 +1,38 @@
 $(document).ready(function(){
    $("#syncdb").click(function(){
-       var post_data = "post_msg="+$("#post1_msg").val();
+       var buttonVal=$("#syncdb").val();
+       //var post_data = "post_msg="+$("#post1_msg").val();
        $.ajax ({
            type:"POST",
-           url:"./res.php",
+           url:"./manModule.php",
            dataType:'json',
-           data:{'post_msg': post_data},
+           data:{'action': syncdb},
            success:function(data) {
                alert ("질문이 입력되었습니다.");
            }
        });
    });
    $("#concan").click(function(){
-       var post_data = "post_msg="+$("#post1_msg").val();
+       var buttonVal=$("#concan").val();
        $.ajax ({
            type:"POST",
-           url:"./res.php",
+           url:"./manModule.php",
            dataType:'json',
-           data:{'post_msg': post_data},
+           data:{'action': buttonVal},
            success:function(data) {
                alert ("질문이 입력되었습니다.");
            }
        });
    });
    $("#genaddr").click(function(){
-       var post_data = $("#candidate").val();;//"<?php global $listCan_str; echojson_encode($listCan_str); ?>";
+       var buttonVal=$("#genaddr").val();
+       var post_data = $("#candidate").val();
        console.log(post_data);
        $.ajax ({
            type:"POST",
            url:"./manModule.php",
            dataType:'json',
-           data:{candidate : post_data},
+           data:{'action': buttonVal, 'candidate': post_data},
            success:function(data) {
                alert ("질문이 입력되었습니다.");
            }

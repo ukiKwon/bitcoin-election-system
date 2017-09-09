@@ -147,7 +147,6 @@ function _Run() {
 			echo -e "</br>>> Main::The requested name list is ${REQ_CANDIDATE_LIST[@]}\n</br>"
 			#GEN_ACCOUNT_NUM=$( setGenAccounts $REQ_ACCOUNT_NUM ) #calculate the num of accounts to be generated
 			setGenAccounts $REQ_ACCOUNT_NUM
-			echo -e "</br>UKI !!!! : $GEN_ACCOUNT_NUM \n</br>"
 			echo -e "</br>>> $GEN_ACCOUNT_NUM accounts can be generated from this wallet\n</br>"
 			if [ $GEN_ACCOUNT_NUM -gt 0 ];then #generate new addresses
 					gen_addr ${REQ_CANDIDATE_LIST[@]}

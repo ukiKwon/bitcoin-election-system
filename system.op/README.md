@@ -10,7 +10,7 @@
 
 	- Then, This shell makes 11 addresses per candidates.(11 = the number of regions in Korea)
 
-#$2.genaddr.sh made by uki408
+#$2.genaddr.sh made by uki408 ( now this has a Issue of permission )
 - genaddr.sh : It calls the getaddressbycandi.sh. This is more uper level shell script.And then the
 			   result of the execution will saved genaddr.log. You can check it in the server.setting				 folder.
 	-USAGE
