@@ -1,7 +1,12 @@
 <?php
-if(isset($_POST['message']))
-  echo $_POST['message'];
-else {
+$list_can = array();
+$listCan_str="";
+
+if(isset($_POST['candidate']))
+{
+  //echo $_POST['candidate'];
+  $list_can=explode(' ',$_POST['candidate']);
+} else {
   echo "NO MESSAGE IS DELIVERED"."</br></br>";
 }
 
@@ -9,7 +14,18 @@ else {
 <?php
 include("./db/locWeb_config.php");
 
-$list_can = array();
+global $list_can;
+global $listCan_str;
+function setListcanStr()
+{
+    global $list_can, $listCan_str;
+    if(!count($list_can))
+      echo "The candidate list is empty now"."</br>";
+    for($i=0; $i<count($list_can); ++$i) {
+      $listCan_str.=($list_can[$i]." ");
+    }
+    echo "Candidates are { ".$listCan_str." }</br>";
+}
 function sizeOfpost()
 {
     global $list_can;
@@ -22,54 +38,41 @@ function sizeOfpost()
         {
           $count++;
           array_push($list_can, $_POST[$i]);
-        }
+
+        } else if($count == 0)
+        {
+          $count=count($list_can)-1;
+        } else{;}
         $chk = isset($_POST[$i++]);
     }
-    #print_r($list_can);
     return "$count";
 }
-$szPost = sizeOfpost();
+# View Date info
 $today = date("Y-m-d H:i:s");
 echo $today."</br></br>";
+# View Candidate info
+$szPost = sizeOfpost();
+# echo candidate list
+setListcanStr();
 echo " Now The number of candidates registered is ".$szPost."</br>";
 
 ?>
 <html>
 <head>
+  <meta charset="utf-8">
   <script src="./lib/jquery-3.2.1.min.js"></script>
+  <script src="./manmodule.js" type="text/javascript"></script>
   <h1>This is a page for a manager</h1>
 </head>
 <body>
 	<ul>
-    <form action="<?php $_PHP_SELF ?>">
-	  synchronize kbkdb-kwebdb <input type="submit" class="button" name="syncdb" value="syncdb"/></br>
-	  confirm candidate <input type="submit" class="button" name="concan" value="concan"/></br>
-    generate candidate address <input type="submit" class="button" name="gen" value="gen"/></br>
+    <form method="post" action="manModule.php">
+	  synchronize kbkdb-kwebdb <input type="submit" id="syncdb" name="syncdb" value="syncdb"/></br>
+	  confirm candidate <input type="submit" id="concan" name="concan" value="concan"/></br>
+    generate candidate address <input type="submit" id="concan" name="concan" value="genaddr"/></br>
+    <input type="hidden" id="candidate" name="candidate" value="<?php echo $listCan_str; ?>"/></br>
   </form>
   </ul>
-  <script>
-  $(document).ready(function(){
-      $('.button').click(function(){
-          var clickBtnValue = $(this).val();
-          var candiValue = <?php echo json_encode($list_can) ?>;
-          var ajaxurl = 'manModule.php';
-          data = [
-                  {'action': clickBtnValue},
-                  {'candidate': candiValue}
-                  ];
 
-          $.post(ajaxurl, data, function (response) {
-              // Response div goes here.
-              alert("action performed successfully");
-          });
-      });
-
-  });
-  </script>
-<script language="javascript">
-    function open_win_editar() {
-        window.open ("the php file exectued here!!!", "Editar notícia", "location=1, status=1, scrollbars=1, width=800, height=455");
-     }
-</script>
 </body>
 </html>
