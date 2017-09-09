@@ -1,6 +1,5 @@
 #!/bin/bash
-# argument[1] : the count of lines
-# argument[2] : the list of names
+#argument[1]= A name of candidate
 
 C_name=$1
 declare -a array_list

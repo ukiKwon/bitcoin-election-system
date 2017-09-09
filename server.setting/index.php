@@ -9,7 +9,6 @@ session_start();
 
 if($_POST['u_name'])
 {
-
       $u_name=isset($_POST['u_name']) ? $_POST['u_name'] : '';
       $sql = "SELECT regisid FROM kdb WHERE name = '$u_name'";
       $result = mysqli_query($link,$sql);

@@ -2,11 +2,10 @@
 
 U_addr=$1
 
-cmd_send='sudo bitcoin-cli -regtest sendtoaddress '$U_addr' 1.000188'
+cmd_send='bitcoin-cli -regtest sendtoaddress '$U_addr' 1'
 
 #echo $cmd_sed
 function send_Money() { #(working)
-i	echo "start"
 	$cmd_send
 	echo $?
 }
