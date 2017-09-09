@@ -1,7 +1,7 @@
-#writer : uki408
-#update_date : 2017-09-09
+# writer : uki408
+# update_date : 2017-09-09
 
-#1.Contents
+# 1.Contents
 
 #$1.getaddressbycandi.sh made by uki408
 - getaddressbycandi.sh : Generate the number of regions addresses per candidates. Its aruments are from AS( Authentication Server ).
@@ -27,5 +27,5 @@ a candidate.
 	-USAGE
 	$ ./sendMoney.sh "A address"
 
-#TO DO
+# TO DO
 - distribution.sh : distribute the coins from the manager of elections.
