@@ -1,15 +1,17 @@
 <?php
 #If this is a localhost,then activate below line
 include("./db/locAs_config.php");
+include("./sendVcode.php");
 ##else
 #include("asdb_config.php");
 ##done
-include("mod_sendTophp.php");
-session_start();
+include("./mod_sendTophp.php");
+//session_start();
 
-if($_POST['u_name'])
+echo "<h1>KWEB</h1>";
+if(isset($_POST['u_name']))
 {
-      $u_name=isset($_POST['u_name']) ? $_POST['u_name'] : '';
+      $u_name=$_POST['u_name'];//isset($_POST['u_name']) ? $_POST['u_name'] : '';
       $sql = "SELECT regisid FROM kdb WHERE name = '$u_name'";
       $result = mysqli_query($link,$sql);
 
@@ -21,12 +23,14 @@ if($_POST['u_name'])
             if(is_null($row['regisid']))
             {
                     echo "Can not find NAME"."</br>";
-            } else
+            }
+            else
             {
                     if(strcmp($row['regisid'], $u_reg))
                     {     #Not registerd
-                          echo "0";
-                    } else
+                          echo "0\n";
+                    }
+                    else
                     { 	  # Registered
                           # Is Manager check
                           $sql_man = "SELECT manager FROM kdb where name='$u_name'"; # TO DO : may be this will be problemed.
@@ -50,27 +54,36 @@ if($_POST['u_name'])
                                   						sendTophp($list_can,'./manager.php');
                                   						print_r($list_can);
                                               mysqli_free_result($res_can);
-                                  						echo "1101"."</br>";
+                                  						echo "1101\n"."</br>";
                                   						#echo("<script>location.replace('./manager.php');</script>");
-                                        } else
+                                        }
+                                        else
                                         {     #Candidates doesn't exist in kdb
-                                              echo "4402"."</br>";}
-                                  } else
+                                              echo "4402\n"."</br>";
+                                        }
+                                  }
+                                  else
                                   {     # Not a manager, but voter
-                                        echo  "1401"."</br>";
-		                                    echo("<script>location.replace('./voter.php');</script>");}
-                          } else { #Managers doesn't exist in kdb.
-                                echo "4401"."</br>";
+                                        echo  "1401\n"."</br>";
+                                        //sendVCode($link, $u_reg);
+		                                    echo("<script>location.replace('./voter.php');</script>");
+                                  }
+                          }
+                          else
+                          { #Managers doesn't exist in kdb.
+                                echo "4401\n"."</br>";
                           }
                     }
-     		     }
-} else
+     		    }
+      }
+      else
+      {   echo "4441\n"."</br>";
+          echo mysqli_errno($link);}
+      }
+else
 {
-		echo "4441"."</br>";
-    echo mysqli_errno($link);}
-} else
-{
-    echo "Type your ID"."</br>";}
+    echo "Type your ID"."</br>";
+}
     mysqli_close($link);
 ?>
 <html>

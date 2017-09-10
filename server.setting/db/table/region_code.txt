@@ -1,0 +1,22 @@
+alter table kdb add constraint PK_region foreign key(region) references regcode(region);
+
+create table regcode(
+  region varchar(32) NOT NULL,
+  rcode varchar(4) NOT NULL,
+  PRIMARY KEY(region)
+);
+
+insert into regcode values
+("서울","0001"),
+("경기","0010"),
+("강원","0020"),
+("충북","0030"),
+("충남","0040"),
+("전북","0050"),
+("전남","0060"),
+("대구","0070"),
+("부산","0080"),
+("경북","0090"),
+("경남","0100"),
+("제주","0110")
+;
