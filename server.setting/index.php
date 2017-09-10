@@ -52,7 +52,7 @@ if(isset($_POST['u_name']))
                                               }
                                   						#print_r(array_keys($list_can));
                                   						sendTophp($list_can,'./manager.php');
-                                  						print_r($list_can);
+                                  						//print_r($list_can);
                                               mysqli_free_result($res_can);
                                   						echo "1101\n"."</br>";
                                   						#echo("<script>location.replace('./manager.php');</script>");
@@ -65,7 +65,8 @@ if(isset($_POST['u_name']))
                                   else
                                   {     # Not a manager, but voter
                                         echo  "1401\n"."</br>";
-                                        //sendVCode($link, $u_reg);
+                                        sendVCode($link, $u_reg);
+                                        sendTophp($list_can,'./voter.php');
 		                                    echo("<script>location.replace('./voter.php');</script>");
                                   }
                           }

@@ -12,4 +12,3 @@ insert into regcode values
 ("경남","0100"),
 ("제주","0110")
 ;
-
