@@ -1,5 +1,4 @@
 <?php
-
 function zeroFilter($arr_can)
 {
   global $arr_can;
