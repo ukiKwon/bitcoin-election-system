@@ -1,11 +1,12 @@
 <?php
-$array_can = array();
-$strCandidates="";
+session_start();
+$arr_can = array();
+$str_cans="";
 
 if(isset($_POST['candidate']))
 {
   //echo $_POST['candidate'];
-  $array_can=explode(' ',$_POST['candidate']);
+  $arr_can=explode(' ',$_POST['candidate']);
 } else {
   echo "NO MESSAGE IS DELIVERED"."</br></br>";
 }
@@ -15,16 +16,16 @@ if(isset($_POST['candidate']))
 include("./db/locWeb_config.php");
 include ("./server_util.php");
 
-global $array_can;
-global $strCandidates;
+global $arr_can;
+global $str_cans;
 
 # View Date info
 $today = date("Y-m-d H:i:s");
 echo $today."</br></br>";
 # View Candidate info
-$szPost = sizeOfpost($array_can);
+$szPost = sizeOfpost($arr_can);
 # echo candidate list
-setListcanStr($array_can, $strCandidates);
+setListcanStr($arr_can, $str_cans);
 echo " Now The number of candidates registered is ".$szPost."</br>";
 
 ?>
@@ -42,7 +43,7 @@ echo " Now The number of candidates registered is ".$szPost."</br>";
 	  synchronize kbkdb-kwebdb <input type="submit" id="syncdb" name="action" value="syncdb"/></br>
 	  confirm candidate <input type="submit" id="concan" name="action" value="concan"/></br>
     generate candidate address <input type="submit" id="concan" name="action" value="genaddr"/></br>
-    <input type="hidden" id="candidate" name="candidate" value="<?php echo $strCandidates; ?>"/></br>
+    <input type="hidden" id="candidate" name="candidate" value="<?php echo $str_cans; ?>"/></br>
   </form>
   </ul>
 

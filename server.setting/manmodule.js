@@ -8,7 +8,7 @@ $(document).ready(function(){
            dataType:'json',
            data:{'action': syncdb},
            success:function(data) {
-               alert ("질문이 입력되었습니다.");
+               alert ("success.");
            }
        });
    });
@@ -20,7 +20,7 @@ $(document).ready(function(){
            dataType:'json',
            data:{'action': buttonVal},
            success:function(data) {
-               alert ("질문이 입력되었습니다.");
+               alert ("success.");
            }
        });
    });
@@ -34,7 +34,7 @@ $(document).ready(function(){
            dataType:'json',
            data:{'action': buttonVal, 'candidate': post_data},
            success:function(data) {
-               alert ("질문이 입력되었습니다.");
+               alert ("success.");
            }
        });
    });

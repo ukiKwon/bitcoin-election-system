@@ -6,6 +6,7 @@ include("./sendVcode.php");
 #include("asdb_config.php");
 ##done
 include("./mod_sendTophp.php");
+include ("./curl-post.php");
 //session_start();
 
 echo "<h1>KWEB</h1>";
@@ -34,17 +35,17 @@ if(isset($_POST['u_name']))
                     { 	  # Registered
                           # Is Manager check
                           $sql_man = "SELECT manager FROM kdb where name='$u_name'"; # TO DO : may be this will be problemed.
-                          $res_man = mysqli_query($link,$sql_man);
+                          $res_man = mysqli_query($link, $sql_man);
                           if($res_man)
                           {
                                 $row_man = mysqli_fetch_array($res_man);
+                                $list_can=array();
                                 if(strcmp($row_man['manager'], 0))
                                 {     # Yes Manager
                                         $sql_can = "SELECT name FROM kdb where candidate='1'";
-                                        $res_can = mysqli_query($link,$sql_can);
+                                        $res_can = mysqli_query($link, $sql_can);
                                         if($res_can)
                                         {     #candidate is here
-                                              $list_can=array();
                                               while($row_can = mysqli_fetch_array($res_can))
                                               {
                                                   #printf("\"candidate\" : \"%s\"</br>", $row_can['name']);
@@ -61,14 +62,26 @@ if(isset($_POST['u_name']))
                                         {     #Candidates doesn't exist in kdb
                                               echo "4402\n"."</br>";
                                         }
-                                  }
-                                  else
-                                  {     # Not a manager, but voter
+                                }
+                                else
+                                {     # Not a manager, but voter
+                                        header('Content-Type:application/json');
                                         echo  "1401\n"."</br>";
+
+                                        print_r($list_can);
                                         sendVCode($link, $u_reg);
                                         sendTophp($list_can,'./voter.php');
-		                                    echo("<script>location.replace('./voter.php');</script>");
-                                  }
+                                        /* test */
+                                        //$sampledata=array("vcode"=> "1234567",
+                                          //                "kaddr"=> "12345678901234567890123456789012");
+                                        //$_jsdata=json_encode($sampledata);
+                                        //print("$_jsdata\n");
+                                        //$v_url="./voter.php";
+                                        //$ret= Curl($v_url, $sampledata);
+                                        //var_dump($ret);
+                                        /* /test */
+		                                    //echo("<script>location.replace('./voter.php');</script>");
+                                }
                           }
                           else
                           { #Managers doesn't exist in kdb.

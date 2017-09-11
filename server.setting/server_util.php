@@ -1,32 +1,32 @@
 <?php
-function zeroFilter($array_can)
+
+function zeroFilter($arr_can)
 {
-  global $array_can;
-  foreach ($array_can as $key => $val) {
+  global $arr_can;
+  foreach ($arr_can as $key => $val) {
       if($val == '')
       {
-          unset($array_can[$key]);
+          unset($arr_can[$key]);
       }
   }
 }
-function setListcanStr($array_can, $strCandidates)
+function setListcanStr($arr_can, $str_cans)
 {
-    global $array_can, $strCandidates;
-    if(!count($array_can))
+    global $arr_can, $str_cans;
+    if(!count($arr_can))
     {
       echo "The candidate list is empty now"."</br>";
     } else
     {
-      for($i=0; $i<count($array_can); ++$i) {
-        $strCandidates.=($array_can[$i]." ");
+      for($i=0; $i<count($arr_can); ++$i) {
+        $str_cans.=($arr_can[$i]." ");
       }
-      echo "Candidates are { ".$strCandidates." }</br>";
+      echo "Candidates are { ".$str_cans." }</br>";
     }
 }
-function sizeOfpost($array_can)
+function sizeOfpost($arr_can)
 {
-    /* TO DO : count($array_can)? */
-    global $array_can;
+    global $arr_can;
     $count=0;
     $chk='true';
     $i=0;
@@ -35,15 +35,15 @@ function sizeOfpost($array_can)
         if(!empty($_POST[$i]))
         {
           $count++;
-          array_push($array_can, $_POST[$i]);
+          array_push($arr_can, $_POST[$i]);
 
         } else if($count == 0)
         {
-          zeroFilter($array_can);
-          $count=count($array_can);
+          zeroFilter($arr_can);
+          $count=count($arr_can);
         } else{;}
         $chk = isset($_POST[$i++]);
     }
-    return "$count\n";
+    return "$count";
 }
- ?>
+?>

@@ -15,7 +15,7 @@ function sendVCode($_link, $_regisid)
       //step3.Get the region code from table regcode
       $sql_vc = "SELECT rcode FROM regcode WHERE region = '$target_reg'";
       $res_vc = mysqli_query($_link, $sql_vc);
-      if(res_vc)
+      if($res_vc)
       {   //step4.region code is found
           $row_vc = mysqli_fetch_array($res_vc);
           //step5.concatenation
