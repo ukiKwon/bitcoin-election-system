@@ -7,7 +7,6 @@ include("./sendVcode.php");
 ##done
 include("./mod_sendTophp.php");
 include ("./curl-post.php");
-//session_start();
 
 /* NOTICE : echo value
   4 bit echo means "boolean" about keyword
@@ -64,15 +63,14 @@ if(isset($_POST['u_name']))
                         {       # This is a Manager
                     						sendTophp($list_can,'./manager.php');
                     						echo "1100\n";
-                    						echo("<script>location.replace('./manager.php');</script>");
+                    						//echo("<script>location.replace('./manager.php');</script>");
                         }
                         else
                         {     # Not a manager, but voter
-                                echo  "1401\n";
+                                echo "1401\n";
                                 sendVCode($link, $u_reg);
-                                //var_dump($list_can);
                                 sendTophp($list_can,'./voter.php');
-                                echo("<script>location.replace('./voter.php');</script>");
+                                //echo("<script>location.replace('./voter.php');</script>");
                         }
                   }
                   else
