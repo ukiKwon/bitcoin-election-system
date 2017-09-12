@@ -8,8 +8,8 @@ $db_user='root';
 $db_pwd='Flower5wantnight';
 $db_name='kbkdb';
 
-$link = mysqli_connect($db_host, $db_user, $db_pwd, $db_name);
-if (!$link)
+$link_kas = mysqli_connect($db_host, $db_user, $db_pwd, $db_name);
+if (!$link_kas)
 {
    echo "MySQL connection error: ";
    echo mysqli_connect_error();
@@ -17,5 +17,5 @@ if (!$link)
 }
 
 
-mysqli_set_charset($link,"utf8");
+mysqli_set_charset($link_kas,"utf8");
 ?>

@@ -1,18 +1,23 @@
 #!/bin/bash
 #argument[1]= A name of candidate
+#argument[2]= the index you want to needle
 
-C_name=$1
 declare -a array_list
-declare -a addr
 
-cmd_getadd='sudo bitcoin-cli -regtest getaddressesbyaccount '$C_name``
+cmd_getadd='bitcoin-cli -regtest -datadir=/home/uki408/Documents/bitcoin/src/uki getaddressesbyaccount'
 
-#echo $cmd_sed
-function get_canaddr() { #(working)
+# made by Mushu92
+function get_canaddrs() { #(working)
 	#start command
-	array_list=`$cmd_getadd`
+	array_list=`$cmd_getadd $1`
 	array_list=($array_list)
-        echo  ${array_list[@]}
+  echo  ${array_list[@]}
 }
-
-get_canaddr
+# updated by uki408
+function get_canaddr() {
+	array_list=`$cmd_getadd $1 | cut -d '"' -f2 -s` #JSON to string
+	array_list=($array_list) #string to array
+  echo ${array_list[$2]}
+}
+# get_canaddrs $1
+get_canaddr $1 $2

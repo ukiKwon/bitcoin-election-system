@@ -27,7 +27,7 @@ if(isset($_POST['u_name']))
 {
       $u_name=$_POST['u_name'];
       $sql = "SELECT regisid FROM kdb WHERE name = '$u_name'";
-      $result = mysqli_query($link, $sql);
+      $result = mysqli_query($link_kas, $sql);
       if($result)   # Valid name -> NOT PASSED YET
       {
             $u_reg=isset($_POST['u_reg']) ? $_POST['u_reg'] : '';
@@ -41,7 +41,7 @@ if(isset($_POST['u_name']))
                   # step1.Get the list of candidates
                   $list_can = array();
                   $sql_can = "SELECT name FROM kdb where candidate='1'";
-                  $res_can = mysqli_query($link, $sql_can);
+                  $res_can = mysqli_query($link_kas, $sql_can);
                   if($res_can)
                   {     #Candidate is found
                         while($row_can = mysqli_fetch_array($res_can))
@@ -55,7 +55,7 @@ if(isset($_POST['u_name']))
                   {echo "NO CANDI";}
                   # step2.Check Manager
                   $sql_man = "SELECT manager FROM kdb where regisid='$u_reg'"; # TO DO : may be this will be problemed.
-                  $res_man = mysqli_query($link, $sql_man);
+                  $res_man = mysqli_query($link_kas, $sql_man);
                   if($res_man)
                   {     # Valid manager name
                         $row_man = mysqli_fetch_array($res_man);
@@ -68,7 +68,7 @@ if(isset($_POST['u_name']))
                         else
                         {     # Not a manager, but voter
                                 echo "1401\n";
-                                sendVCode($link, $u_reg);
+                                sendVCode($link_kas, $u_reg);
                                 sendTophp($list_can,'./voter.php');
                                 //echo("<script>location.replace('./voter.php');</script>");
                         }
@@ -82,14 +82,14 @@ if(isset($_POST['u_name']))
       else # Failed due to unregistered name
       {   echo "4000\n";
           echo "<script>console.log('Can not find NAME');</script>";
-          echo mysqli_errno($link);
+          echo mysqli_errno($link_kas);
       }
 }
 else
 {
     echo "Type your ID"."</br>";
 }  # No post data of 'name'
-    mysqli_close($link);
+    mysqli_close($link_kas);
 ?>
 <html>
    <body>
