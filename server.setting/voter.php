@@ -8,7 +8,6 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 }
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
-include ("./session.php");
 # VCODE SPLIT POINT
 $arr_can=array();
 $str_cans="";

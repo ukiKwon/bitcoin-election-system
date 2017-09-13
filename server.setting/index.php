@@ -6,19 +6,17 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 }
 else
 {   //Or another
-    include("asdb_config.php");
+    include("./db/asdb_config.php");
 }
 include_once ("./server_util.php");
 include_once ("./sendVcode.php");
 include_once ("./mod_sendTophp.php");
 
-echo "<h1>KWEB</h1>";
-$login=0000;
 //echo $_POST['u_name'];
 if(isset($_POST['u_name']))
 {
       $u_name=$_POST['u_name'];
-      $sql = "SELECT regisid,sex FROM kdb WHERE name = '$u_name'";
+      $sql = "SELECT regisid FROM kdb WHERE name = '$u_name'";
       $result = mysqli_query($link_kas, $sql);
       if($result)   # Valid name -> NOT PASSED YET
       {
@@ -26,8 +24,8 @@ if(isset($_POST['u_name']))
             $row = mysqli_fetch_array($result);
             if(strcmp($row['regisid'], $u_reg))
             {
-                  $login=4001;
-                  loginHanlderMsg($login);
+                  $login=4001;#echo "$login<br/>\n";
+                  //loginHanlderMsg($login);
             }   # Failed due to wrong register id
             else
             {     # Registered
@@ -39,13 +37,16 @@ if(isset($_POST['u_name']))
                   {     #Candidate is found
                         while($row_can = mysqli_fetch_array($res_can))
                         {
-                            echo "</br>".$row_can['name']."</br>";
+                            #echo "</br>".$row_can['name']."</br>";
                             array_push($list_can, $row_can['name']);
                         }
                         mysqli_free_result($res_can);
                   }
                   else  #Candidates doesn't exist in kdb
-                  {$login=1001;loginHanlderMsg($login);}
+                  {
+			$login=1001;#echo "$login<br/>\n";
+			#loginHanlderMsg($login);
+		  }
                   # step2.Check Manager
                   $sql_man = "SELECT manager FROM kdb where regisid='$u_reg'"; # TO DO : may be this will be problemed.
                   $res_man = mysqli_query($link_kas, $sql_man);
@@ -54,26 +55,30 @@ if(isset($_POST['u_name']))
                         $row_man = mysqli_fetch_array($res_man);
                         if(strcmp($row_man['manager'], 0))
                         {       # This is a Manager
-                                $login=1100;loginHanlderMsg($login);
+                                $login=1100;#echo "$login<br/\n";
+				#loginHanlderMsg($login);
                     						sendTophp($list_can,'./manager.php');
                     						//echo("<script>location.replace('./manager.php');</script>");
                         }
                         else
                         {     # Not a manager, but voter
-                                $login=1401;loginHanlderMsg($login);
-                                sendVCode($link_kas, $u_reg);
+                                $login=1401;
+				#echo "$login<br/>\n";#loginHanlderMsg($login);
+                                $vcode=sendVCode($link_kas, $u_reg);
                                 sendTophp($list_can,'./voter.php');
                                 //echo("<script>location.replace('./voter.php');</script>");
                         }
                   }
                   else
                   {     #Managers doesn't exist in kdb.
-                        $login=1401;loginHanlderMsg($login);
+                        $login=1401;#echo "$login<br/>\n";
+			#loginHanlderMsg($login);
                   }
             }
 	    }
       else # Failed due to unregistered name
-      {   $login=4000;loginHanlderMsg($login);
+      {   $login=4000;#echo "$login<br/>\n";
+		#loginHanlderMsg($login);
           echo mysqli_errno($link_kas);
       }
 }
@@ -84,12 +89,13 @@ else
     mysqli_close($link_kas);
 ?>
 <?php
+echo $_SERVER['HTTP_USER_AGENT'];
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
-global $login;
-echo $login;
-if(!$vApp) {
+var_dump($vApp);
+if($vApp === false) {
 ?>
     <html>
+	<head><h1>KWEB</h1></head>
        <body>
           <form action="<?php $_PHP_SELF ?>" method="POST">
             id: <input type = "text" name = "u_name" />
@@ -99,5 +105,11 @@ if(!$vApp) {
        </body>
     </html>
 <?php
+} else
+{
+global $login,$vcode;
+	echo $login;
+	echo "</br>\n";
+	echo $vcode;
 }
 ?>
