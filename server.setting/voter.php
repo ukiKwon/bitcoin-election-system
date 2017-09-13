@@ -16,6 +16,8 @@ $arr_caddr=array();
 # DATE && CANDIDATE LIST
 webHeader($arr_can, $str_cans);
 
+var_dump($_POST['k_json']);
+echo "</br>\n";
 # processing post data
 if(isset($_POST['k_json']))
 {			# RECEIVE JSON OBJ : FROM VOTERS
@@ -24,14 +26,20 @@ if(isset($_POST['k_json']))
 			# kbk address : 34 bite
 			//$data_object=json_decode($_POST['k_json']);// parse to php object
 			$data_array=json_decode($_POST['k_json'], true);// parse to php array
+			var_dump($data_array);
+			echo "</br>\n";
+			var_dump($data_array);
+			echo "</br>\n";
 			if (json_last_error() > 0)
 			{		// handle error
 		      echo "</br>"."decoding failed\n";
 		      echo json_last_error_msg() . PHP_EOL;
 		  }
 			# JSONtoArray
-		  $_vcode=$data_array["k_json"][0]["kaddr"];
-		  $_kaddr=$data_array["k_json"][1]["vcode"];
+		  #$_vcode=$data_array["k_json"][0]["kaddr"];
+		  #$_kaddr=$data_array["k_json"][1]["vcode"];
+		  $_kaddr=$data_array["kaddr"];
+		  $_vcode=$data_array["vcode"];
       // split vcode
     	$_rcode=substr($_vcode, 0, VC['LEN_REG']);
 
@@ -66,9 +74,9 @@ else
 	          { "vcode": "0010m56"}
 	      ]}';
 		# DECODE JSON
-	  $data_object=json_decode($json_string);// parse to php object
+	  #$data_object=json_decode($json_string);// parse to php object
 	  $data_array=json_decode($json_string, true);// parse to php array
-
+		var_dump($data_array);
 	  if (json_last_error() > 0)
 		{		// handle error
 	      echo "</br>"."decoding failed\n";
@@ -112,7 +120,7 @@ setVoterInfo($link_kweb, $_kaddr, $_vcode);
 //echo $_SERVER['HTTP_USER_AGENT'];
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
 
-if(!$vApp)
+if($vApp === false)
 {		#Device == web
 ?>
 		<html>
@@ -120,7 +128,7 @@ if(!$vApp)
 			<body>
 				<h4>SEE A ELECTION</h4>
 				<input name="showRate" type="submit" action='<?php $_PHPSELF ?>' value="k_rate"/>
-				<a href = "./logout.php">Sign Out</a>
+				<input name="logout" type="submit" action="./logout.php" value="logout">
 			</body>
 		</html>
 <?php
