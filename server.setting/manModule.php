@@ -31,9 +31,7 @@ echo "action is : ".$action."</br></br>";
 
 if(isset($_POST['action']))
 {
-   echo '<script>';
-  echo 'console.log("OK")';
-  echo '</script>';
+   echo "<script>console.log('>> The button of man is activated');</script>";
   switch($_POST['action'])
   {
     case "syncdb" :
@@ -49,15 +47,4 @@ if(isset($_POST['action']))
       break;
   }
 }
-/*
-  echo "<html>\n";
-  echo "<head>\n";
-  echo "</head>\n";
-  echo "<body onload='document.form1.submit();'>\n";
-  echo "<form name='form1' method='post' action='manager.php'>\n";
-  echo "<input type='hidden' name='can' value='$value'/>\n";
-  echo "</form>\n";
-  echo "</body>\n";
-  echo "</html>";
-*/
 ?>

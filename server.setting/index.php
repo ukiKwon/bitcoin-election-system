@@ -1,12 +1,15 @@
 <?php
-#If this is a localhost,then activate below line
-include("./db/locAs_config.php");
+# SET DB
+if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
+{   //If this is localhost
+    include("./db/locAs_config.php");
+}
+else
+{   //Or another
+    include("asdb_config.php");
+}
 include("./sendVcode.php");
-##else
-#include("asdb_config.php");
-##done
 include("./mod_sendTophp.php");
-include ("./curl-post.php");
 
 /* NOTICE : echo value
   4 bit echo means "boolean" about keyword
@@ -91,12 +94,21 @@ else
 }  # No post data of 'name'
     mysqli_close($link_kas);
 ?>
-<html>
-   <body>
-      <form action="<?php $_PHP_SELF ?>" method="POST">
-        id: <input type = "text" name = "u_name" />
-        reg: <input type = "text" name = "u_reg" />
-        <input type = "submit" />
-      </form>
-   </body>
-</html>
+<?php
+
+$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "bit");
+
+if(!$vApp) {
+?>
+    <html>
+       <body>
+          <form action="<?php $_PHP_SELF ?>" method="POST">
+            id: <input type = "text" name = "u_name" />
+            reg: <input type = "text" name = "u_reg" />
+            <input type = "submit" />
+          </form>
+       </body>
+    </html>
+<?php
+}
+?>

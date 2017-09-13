@@ -1,33 +1,25 @@
 <?php
+date_default_timezone_set('Asia/Seoul');
+function webHeader($arr_can, $str_cans)
+{
+    global $arr_can, $str_cans;
+    //date
+    $today = date("Y-m-d H:i:s");
+    echo $today."</br></br>";
+    //candidate
+    $sz_can = sizeOfpost($arr_can);
+    setListcanStr($arr_can, $str_cans);
+    echo " Now The number of candidates registered is ".$sz_can."</br>";
+}
 function zeroFilter($arr_can)
 {
-  global $arr_can;
-  foreach ($arr_can as $key => $val) {
-      if($val == '')
-      {
-          unset($arr_can[$key]);
-      }
-  }
-}
-function indexingAddr($arr_can, $arr_caddr, $index)
-{
-  global $arr_caddr;
-  for($i=0; $i< count($arr_can); $i++)
-  {
-    $name=$arr_can[$i];
-    $var=exec("../system.op/getadd.sh $name $index"); // getaddress by account
-    array_push($arr_caddr, $var);
-  }
-  // check the address of candidates
-  if(!count($arr_caddr))
-  { // fail
-    echo "\nsytem is not ready";echo "</br>";
-  }
-  else
-  { // success : get the specified address by account along by the voter region
-    //print_r($arr_caddr)
-    ;
-  }
+    global $arr_can;
+    foreach ($arr_can as $key => $val) {
+        if($val == '')
+        {
+            unset($arr_can[$key]);
+        }
+    }
 }
 function setListcanStr($arr_can, $str_cans)
 {

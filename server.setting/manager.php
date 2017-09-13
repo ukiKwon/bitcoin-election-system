@@ -19,17 +19,15 @@ include ("./server_util.php");
 global $arr_can;
 global $str_cans;
 
-# View Date info
-$today = date("Y-m-d H:i:s");
-echo $today."</br></br>";
-# View Candidate info
-$szPost = sizeOfpost($arr_can);
-# echo candidate list
-setListcanStr($arr_can, $str_cans);
-echo " Now The number of candidates registered is ".$szPost."</br>";
-
+# View Date && candiates
+webHeader($arr_can, $str_cans);
 ?>
+<?php
 
+$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "bit");
+
+if(!$vApp) {
+?>
 <html>
 <head>
   <meta charset="utf-8">
@@ -49,3 +47,6 @@ echo " Now The number of candidates registered is ".$szPost."</br>";
 
 </body>
 </html>
+<?php
+}
+?>
