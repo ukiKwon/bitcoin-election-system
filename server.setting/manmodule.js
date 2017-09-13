@@ -1,6 +1,6 @@
 $(document).ready(function(){
-   $("#syncdb").click(function(){
-       var buttonVal=$("#syncdb").val();
+   $("#permitb").click(function(){
+       var buttonVal=$("#permitb").val();
        //var post_data = "post_msg="+$("#post1_msg").val();
        $.ajax ({
            type:"POST",
@@ -12,8 +12,8 @@ $(document).ready(function(){
            }
        });
    });
-   $("#concan").click(function(){
-       var buttonVal=$("#concan").val();
+   $("#showtx").click(function(){
+       var buttonVal=$("#showtx").val();
        $.ajax ({
            type:"POST",
            url:"./manModule.php",

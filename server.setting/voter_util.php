@@ -50,7 +50,7 @@ function indexingCAddr($arr_can, $arr_caddr, $index)
     // check the address of candidates
     if(!count($arr_caddr))
     { // fail
-      echo "\nsytem is not ready";echo "</br>";
+      echo "<script>console.log('>> sytem is not ready');</script>";
     }
     else
     { // success : get the specified address by account along by the voter region
@@ -65,7 +65,7 @@ function setVoterInfo($link_kweb, $_kaddr, $_vcode)
 		$_rcode=substr($_vcode, 0, VC['LEN_REG']);
 		$_ksex=substr($_vcode, VC['LEN_REG'], VC['LEN_SEX']);
 		$_kage=substr($_vcode, VC['LEN_REG'] + VC['LEN_SEX']);
-		$_ktoday = date("Y-m-d H:i:s");
+		$_ktoday=date("Y-m-d H:i:s");
 
 		//into KWEBDB
 		$sql_vote= "INSERT INTO voter values ('$_kaddr', '$_ktoday','$_rcode','$_ksex','$_kage')";

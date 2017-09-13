@@ -1,44 +1,50 @@
 <?php
-function syncdb() {
-    $message=">> The syncdb function is called.";
-    echo $message;
+include_once("./mod_sendTophp.php");
+function manModulemsg($val, $message)
+{
+    echo "<script>console.log('$message');</script>";
+    if(!$val)
+    {
+        echo "<script>console.log('>> Operating success');</script>";
+    } else {
+        echo "<script>console.log('>> Operating fail');</script>";
+    }
+}
+function permitb()
+{
+    $message=">> The permitb function is called.";
+    $val=exec("../system.op/permitblock.sh");
+    manModulemsg($val, $message);
     exit;
 }
 
-function concan() {
-    $message=">> The concan function is called.";
-    echo $message;
+function showtx()
+{
+    $message=">> The showtx function is called.";
+    manModulemsg($val, $message);
     exit;
 }
-function genaddr() {
-    global $value;
-    $message=">> The genaddr function is called.";
-    echo $message."</br>";
-    #echo "The gen function is called.";
-    echo "candidateList : ".$value."</br>";
-    //exec("../system.op/getaddressbycandi.ver1.4.sh $value");
-    //system("../system.op/getaddressbycandi.ver1.4.sh $value");
-    //system("../system.op/genaddr.sh $value");
+function genaddr()
+{
+    $message=">> The generating addr of candidates is operated.";
+    manModulemsg($val, $message);
+    echo "<script>console.log('candidateList :$value');</script>";
+    //$ret=exec("../system.op/getaddressbycandi.ver1.4.sh $value");
     exit;
 }
-
-$value=isset($_POST['candidate'])? $_POST['candidate'] : "NO RETURN";
-$action=isset($_POST['action'])? $_POST['action'] : "NO ACTION";
-
-echo "</br><h1>Parameter checking below</h1>";
-echo "candidate are :".$value."</br>";
-echo "action is : ".$action."</br></br>";
-
+echo "</br><h1>Manager Workspace</h1>";
 if(isset($_POST['action']))
 {
-   echo "<script>console.log('>> The button of man is activated');</script>";
-  switch($_POST['action'])
+  $action=isset($_POST['action'])? $_POST['action'] : "NO ACTION";
+  $value=isset($_POST['candidate'])? $_POST['candidate'] : "NO RETURN";
+  //echo "<script>console.log('>> action : $action');</script>";
+  switch($action)
   {
-    case "syncdb" :
-      syncdb();
+    case "permitb" :
+      permitb();
       break;
-    case "concan" :
-      concan();
+    case "showtx" :
+      showtx();
       break;
     case "genaddr":
       genaddr();
@@ -47,4 +53,5 @@ if(isset($_POST['action']))
       break;
   }
 }
+
 ?>

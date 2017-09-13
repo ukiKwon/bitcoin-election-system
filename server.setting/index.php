@@ -8,28 +8,17 @@ else
 {   //Or another
     include("asdb_config.php");
 }
-include("./sendVcode.php");
-include("./mod_sendTophp.php");
+include_once ("./server_util.php");
+include_once ("./sendVcode.php");
+include_once ("./mod_sendTophp.php");
 
-/* NOTICE : echo value
-  4 bit echo means "boolean" about keyword
-  x         x         x         x
-  |         |         |         |
-  voter   manager     candidate fail count
-
-ex) 1010 : voter and candidate
-    4001 : right name but wrong regisid
-    4000 : not korean
-    1100 : voter and manager
-    1401 : voter but not manager
-
-- but checking this user is candidate will not chekcing.because it has no mean.
-*/
 echo "<h1>KWEB</h1>";
+$login=0000;
+//echo $_POST['u_name'];
 if(isset($_POST['u_name']))
 {
       $u_name=$_POST['u_name'];
-      $sql = "SELECT regisid FROM kdb WHERE name = '$u_name'";
+      $sql = "SELECT regisid,sex FROM kdb WHERE name = '$u_name'";
       $result = mysqli_query($link_kas, $sql);
       if($result)   # Valid name -> NOT PASSED YET
       {
@@ -37,7 +26,8 @@ if(isset($_POST['u_name']))
             $row = mysqli_fetch_array($result);
             if(strcmp($row['regisid'], $u_reg))
             {
-                  echo "4001\n";
+                  $login=4001;
+                  loginHanlderMsg($login);
             }   # Failed due to wrong register id
             else
             {     # Registered
@@ -55,7 +45,7 @@ if(isset($_POST['u_name']))
                         mysqli_free_result($res_can);
                   }
                   else  #Candidates doesn't exist in kdb
-                  {echo "NO CANDI";}
+                  {$login=1001;loginHanlderMsg($login);}
                   # step2.Check Manager
                   $sql_man = "SELECT manager FROM kdb where regisid='$u_reg'"; # TO DO : may be this will be problemed.
                   $res_man = mysqli_query($link_kas, $sql_man);
@@ -64,13 +54,13 @@ if(isset($_POST['u_name']))
                         $row_man = mysqli_fetch_array($res_man);
                         if(strcmp($row_man['manager'], 0))
                         {       # This is a Manager
+                                $login=1100;loginHanlderMsg($login);
                     						sendTophp($list_can,'./manager.php');
-                    						echo "1100\n";
                     						//echo("<script>location.replace('./manager.php');</script>");
                         }
                         else
                         {     # Not a manager, but voter
-                                echo "1401\n";
+                                $login=1401;loginHanlderMsg($login);
                                 sendVCode($link_kas, $u_reg);
                                 sendTophp($list_can,'./voter.php');
                                 //echo("<script>location.replace('./voter.php');</script>");
@@ -78,13 +68,12 @@ if(isset($_POST['u_name']))
                   }
                   else
                   {     #Managers doesn't exist in kdb.
-                        echo "1401\n";
+                        $login=1401;loginHanlderMsg($login);
                   }
             }
 	    }
       else # Failed due to unregistered name
-      {   echo "4000\n";
-          echo "<script>console.log('Can not find NAME');</script>";
+      {   $login=4000;loginHanlderMsg($login);
           echo mysqli_errno($link_kas);
       }
 }
@@ -95,9 +84,9 @@ else
     mysqli_close($link_kas);
 ?>
 <?php
-
-$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "bit");
-
+$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
+global $login;
+echo $login;
 if(!$vApp) {
 ?>
     <html>

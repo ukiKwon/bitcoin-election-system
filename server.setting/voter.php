@@ -8,6 +8,7 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 }
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
+include ("./session.php");
 # VCODE SPLIT POINT
 $arr_can=array();
 $str_cans="";
@@ -19,7 +20,7 @@ webHeader($arr_can, $str_cans);
 # processing post data
 if(isset($_POST['k_json']))
 {			# RECEIVE JSON OBJ : FROM VOTERS
-			#	RECEIVE JSON VALUE
+			#
 			# voter code : region(4 byte) + sex(1 bite) + age(1 byte) .=.31 bite
 			# kbk address : 34 bite
 			//$data_object=json_decode($_POST['k_json']);// parse to php object
@@ -30,8 +31,8 @@ if(isset($_POST['k_json']))
 		      echo json_last_error_msg() . PHP_EOL;
 		  }
 			# JSONtoArray
-		  $_vcode=$data_array["sam"][0]["vcode"];
-		  $_kaddr=$data_array["sam"][1]["kaddr"];
+		  $_vcode=$data_array["k_json"][0]["kaddr"];
+		  $_kaddr=$data_array["k_json"][1]["vcode"];
       // split vcode
     	$_rcode=substr($_vcode, 0, VC['LEN_REG']);
 
@@ -62,8 +63,8 @@ else
 { 	# No Json data
 	  // setting test data
 	  $json_string='{ "sam": [
-	          { "vcode": "0010m56"},
-	          { "kaddr": "mgfXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" }
+						{ "kaddr": "mgfXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" },
+	          { "vcode": "0010m56"}
 	      ]}';
 		# DECODE JSON
 	  $data_object=json_decode($json_string);// parse to php object
@@ -75,8 +76,8 @@ else
 	      echo json_last_error_msg() . PHP_EOL;
 	  }
 		# JSONtoArray
-	  $_vcode=$data_array["sam"][0]["vcode"];
-	  $_kaddr=$data_array["sam"][1]["kaddr"];
+		$_kaddr=$data_array["sam"][0]["kaddr"];
+		$_vcode=$data_array["sam"][1]["vcode"];
 		# SPLIT vcode
 	  $_rcode=substr($_vcode, 0, VC['LEN_REG']);
 	  //echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
@@ -109,8 +110,8 @@ else {
 setVoterInfo($link_kweb, $_kaddr, $_vcode);
 ?>
 <?php
-
-$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "bit");
+//echo $_SERVER['HTTP_USER_AGENT'];
+$vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
 
 if(!$vApp)
 {		#Device == web
@@ -120,6 +121,7 @@ if(!$vApp)
 			<body>
 				<h4>SEE A ELECTION</h4>
 				<input name="showRate" type="submit" action='<?php $_PHPSELF ?>' value="k_rate"/>
+				<a href = "./logout.php">Sign Out</a>
 			</body>
 		</html>
 <?php
