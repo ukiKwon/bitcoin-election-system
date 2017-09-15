@@ -6,10 +6,11 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 	include_once ("./db/locAs_config.php");
 } else
 {
-	include_once ("./db/asdb_config.php");
-}
+	include_once ("./db/asdb_config.php"); 
+} 
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
+
 # VCODE SPLIT POINT 
 $arr_can=array();
 $str_cans="";
@@ -18,7 +19,6 @@ $arr_caddr=array();
 
 # DATE && CANDIDATE LIST
 webHeader($arr_can, $str_cans);
-#var_dump($_POST['k_json']);
 
 # processing post data
 if(isset($_POST['k_json']))
@@ -39,19 +39,18 @@ if(isset($_POST['k_json']))
 			$_kcans=$data_array["cname"];
       			// split vcode
     			$_rcode=substr($_vcode, 0, VC['LEN_REG']);
-     			echo "</br>\n"."_vcode:".$_vcode."</br>\n";echo "_kaddr:".$_kaddr."</br>\n";echo "_rcode:".$_rcode."</br>\n";
+     			#echo "</br>\n"."_vcode:".$_vcode."</br>\n";echo "_kaddr:".$_kaddr."</br>\n";echo "_rcode:".$_rcode."</br>\n";
 				
 			# DB checking && get 'index', region index
 			$index=getIndexRegion($link_kas, $_rcode);
-			echo "</br>\n"."rcode ------->>index :".$index."</br>\n";
+			#echo "</br>\n"."rcode ------->>index :".$index."</br>\n";
 			
-			# If Voter is will set 
+			# If Voter App use this
 			$arr_can=explode(",", $_kcans);		
-			var_dump($arr_can);
+
 			# INDEXING
 			indexingCAddr($arr_can, $arr_caddr, $index);
-			#var_dump($arr_can);
-			#var_dump($arr_caddr);
+
 			# JSON_DATAtoVOTER
 			$retTovoter=array();
 			for($i=0; $i<count($arr_can); ++$i)
@@ -61,21 +60,6 @@ if(isset($_POST['k_json']))
 			}
 			$jsonTovoter=json_encode($retTovoter);	//to json
 			$jsonTovoter=json_encode($retTovoter, JSON_UNESCAPED_UNICODE);	//solution : hangul error
-			echo $jsonTovoter;
-
-		# SEND BALLOT(VOTE)
-		$sendBal=exec("../system.op/sendBallot.sh $_kaddr 'GBTV'");
-		if(!$sendBal)
-		{
-			#echo "\n>> Ballot is given to you";
-			consoleMsg(">> Ballot is given to you");
-		}
-		else
-		{
-			#echo "\n>> you address is wrong";
-			consoleMsg(">> The voter address is not valid");
-		}
-
 }
 else
 { 	# No Json data
@@ -117,24 +101,15 @@ else
 		var_dump($jsonTovoter);
 
 }
-
-# SEND BALLOT(VOTE) : #working
-$sendBal=exec("../system.op/sendBallot.sh $_kaddr 'GBTV'");
-if(!$sendBal)
-{
-		#echo "\n>> Ballit is given to you";
-		consoleMsg(">>Ballot is given to you");
-}
-else {
-		#echo "\n>> You address is wrong";
-		consoleMsg(">> The voter address is not valid");
-}
 # SAVE VOTER INFO INTO WEBDB
-setVoterInfo($link_kweb, $_kaddr, $_vcode);
+$_ballot=setVoterInfo($link_kweb, $_kaddr, $_vcode);
+
+var_dump($_ballot);
+# SEND BALLOT(VOTE)
+_sendBallot($_ballot, $_kaddr);
 
 ?>
 <?php
-//echo $_SERVER['HTTP_USER_AGENT'];
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
 
 if($vApp === false)
@@ -152,7 +127,7 @@ if($vApp === false)
 } else
 {		#Device == App
 		global $jsonTovoter;
-		echo "</br>\n";
+		echo "\n";
 		echo $jsonTovoter;
 }
 ?>

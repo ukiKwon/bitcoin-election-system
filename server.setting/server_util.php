@@ -67,22 +67,22 @@ function loginHanlderMsg($_ecode)
   switch($_ecode)
   {
     case 4001:
-      echo "</br>\n"."<script>console.log('# Failed due to wrong register id');</script>";
+	consoleMsg("($_ecode)# Failed due to wrong register id");
       break;
     case 1100:
-      echo "</br>\n"."<script>console.log('# This is a Manager');</script>";
+	consoleMsg("($_ecode)# This isa Manager");
       break;
     case 1001:
-      echo "</br>\n"."<script>console.log('#Candidates doesn't exist in kdb');</script>";
+	consoleMsg("($_ecode)# Candidates doesn't exist in kdb");
       break;
     case 1401:
-      echo "</br>\n"."<script>console.log('# Not a manager, but voter');</script>";
+	consoleMsg("($_ecode)# Not a Manager, but voter");
       break;
     case 4000:
-      echo "</br>\n"."<script>console.log('# Failed due to unregistered named');</script>";
+	consoleMsg("($_ecode)# Failed due to unregistered named");
       break;
     defalut :
-      echo "</br>\n"."<script>console.log('# Somthing wrong : Login parameter');</script>";
+	consoleMsg("($_ecode)# Something wrong : Login parameter");
       break;
   }
 }
@@ -92,23 +92,26 @@ function consoleMsg($msg)
 }
 function retBashMsg($cur_path, $ret)
 {
+  $msg=$cur_path.">> Exec(shell) is";
   if($ret == 0)
   {
-      echo "</br>\n"."<script>console.log('>>($cur_path)-Exec(shell) is success');</script>";
+      $msg.="success";
+      consoleMsg($msg);
     
   } else
   {
-      echo "</br>\n"."<script>console.log('>>($cur_path)-Exec(shell) is fail or system was operated');</script>";
+      $msg.="fail or the 'system', not 'exec', was called"; 
+      consoleMsg($msg);
   }
 }
 function manModulemsg($value, $message)
 {
-    echo "</br>\n"."<script>console.log('$message');</script>";
+    consoleMsg($message); 
     if(count($value))
     {
-        echo "</br>\n"."<script>console.log('>> Operating success');</script>";
+	consoleMsg(">> Operating success");
     } else {
-        echo "</br>\n"."<script>console.log('>> Operating fail');</script>";
+        consoleMsg(">> Operating fail");
     }
 }
 function zeroFilter($arr_can)

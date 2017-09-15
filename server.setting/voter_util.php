@@ -13,9 +13,7 @@ include_once("./server_util.php");
 //vcode : This is about the voter info
 define ('VC', [
 	'LEN_REG'=>4,
-  'LEN_SEX'=>1,
-	'LEN_AGE'=>3,
-]);
+  	'LEN_SEX'=>1, 'LEN_AGE'=>3, ]);
 # COMMENT
 // give a ballot to the voter
 define("GBTV", "give Ballot");
@@ -58,11 +56,11 @@ function indexingCAddr($arr_can, $arr_caddr, $index)
     // check the address of candidates
     if(!count($arr_caddr))
     { // fail
-      echo "</br>\n"."<script>console.log('\n>> sytem is not ready');</script>";
+      consoleMsg(">> system is not ready. Check bitcoind run or candidate address is setting");
     }
     else
     { // success : get the specified address by account along by the voter region
-      echo "</br>\n"."<script>console.log('\n>> sytem is ready');</script>";
+      consoleMsg(">> system is ready");
       #print_r($arr_caddr)
       ;
     }
@@ -79,7 +77,7 @@ function setVoterInfo($link_kweb, $_kaddr, $_vcode)
 		//into KWEBDB
 		$sql_vote= "INSERT INTO voter values ('$_kaddr', '$_ktoday','$_rcode','$_ksex','$_kage')";
 		$res_vote = mysqli_query($link_kweb, $sql_vote);
-		if($res_vote)
+		if($res_vote === true)
 		{
 				mysqliMsg($res_vote);
 		}
@@ -87,5 +85,35 @@ function setVoterInfo($link_kweb, $_kaddr, $_vcode)
 				$errno=mysqli_errno($link_kweb);
 				mysqliMsg($errno);
 		}
+		mysqli_close($link_kweb);
+		return "$res_vote";
+}
+function sendBallot($_kaddr_)
+{
+	$sendbal=exec("../system.op/sendBallot.sh $_kaddr_ 'GBTV'");
+	echo "sendbal :".$sendbal;
+	if($sendbal != 0)
+	{
+		consoleMsg(">> Ballot is given to you");	
+		consoleMsg(", ballotId $sendbal");
+	}
+	else
+	{
+		consoleMsg(">> The voter address is not valid");
+	}
+	return "$sendbal";
+}
+function _sendBallot($_bool, $_kaddr)
+{
+	
+	if($_bool === true)
+	{
+		echo "</br>\n"."send!!!";
+		sendBallot($_kaddr);
+	}
+	else
+	{
+		consoleMsg(">> You've already vote.");
+	}
 }
  ?>
