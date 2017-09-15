@@ -8,6 +8,7 @@ else
 {   //Or another
     include("./db/asdb_config.php");
 }
+//else{;}
 include_once ("./server_util.php");
 include_once ("./sendVcode.php");
 include_once ("./mod_sendTophp.php");
@@ -24,7 +25,7 @@ if(isset($_POST['u_name']))
             $row = mysqli_fetch_array($result);
             if(strcmp($row['regisid'], $u_reg))
             {
-                  $login=4001;#echo "$login<br/>\n";
+                  $login=4001;
                   //loginHanlderMsg($login);
             }   # Failed due to wrong register id
             else
@@ -37,16 +38,15 @@ if(isset($_POST['u_name']))
                   {     #Candidate is found
                         while($row_can = mysqli_fetch_array($res_can))
                         {
-                            #echo "</br>".$row_can['name']."</br>";
                             array_push($list_can, $row_can['name']);
                         }
                         mysqli_free_result($res_can);
                   }
                   else  #Candidates doesn't exist in kdb
                   {
-			$login=1001;#echo "$login<br/>\n";
-			#loginHanlderMsg($login);
-		  }
+                  			$login=1001;
+                  			#loginHanlderMsg($login);
+            		  }
                   # step2.Check Manager
                   $sql_man = "SELECT manager FROM kdb where regisid='$u_reg'"; # TO DO : may be this will be problemed.
                   $res_man = mysqli_query($link_kas, $sql_man);
@@ -55,30 +55,31 @@ if(isset($_POST['u_name']))
                         $row_man = mysqli_fetch_array($res_man);
                         if(strcmp($row_man['manager'], 0))
                         {       # This is a Manager
-                                $login=1100;#echo "$login<br/\n";
-				#loginHanlderMsg($login);
+                                $login=1100;
+		                            #loginHanlderMsg($login);
                     						sendTophp($list_can,'./manager.php');
                     						//echo("<script>location.replace('./manager.php');</script>");
                         }
                         else
                         {     # Not a manager, but voter
                                 $login=1401;
-				#echo "$login<br/>\n";#loginHanlderMsg($login);
+				                        #loginHanlderMsg($login);
                                 $vcode=sendVCode($link_kas, $u_reg);
                                 sendTophp($list_can,'./voter.php');
+
                                 //echo("<script>location.replace('./voter.php');</script>");
                         }
                   }
                   else
                   {     #Managers doesn't exist in kdb.
-                        $login=1401;#echo "$login<br/>\n";
-			#loginHanlderMsg($login);
+                        $login=1401;
+	                      #loginHanlderMsg($login);
                   }
             }
 	    }
       else # Failed due to unregistered name
-      {   $login=4000;#echo "$login<br/>\n";
-		#loginHanlderMsg($login);
+      {   $login=4000;
+		      #loginHanlderMsg($login);
           echo mysqli_errno($link_kas);
       }
 }
@@ -86,12 +87,13 @@ else
 {
     echo "Type your ID"."</br>";
 }  # No post data of 'name'
-    mysqli_close($link_kas);
+mysqli_close($link_kas);
 ?>
 <?php
-echo $_SERVER['HTTP_USER_AGENT'];
+echo "js-mang Ham?";
+//echo $_SERVER['HTTP_USER_AGENT'];
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
-var_dump($vApp);
+//var_dump($vApp);
 if($vApp === false) {
 ?>
     <html>

@@ -1,5 +1,5 @@
 # writer : uki408
-# update_date : 2017-09-09
+# update_date : 2017-09-14
 
 # 1.Contents
 
@@ -22,10 +22,20 @@ a candidate.
 	- USAGE
 	$ getaddr.sh "a account of this wallet"
 
-#$4.sendMoney.sh made by Mushu92
-- sendMoney.sh : It send 1 coin from this wallet to the target address.
+#$4.sendBallot.sh made by Mushu92
+- sendBallot.sh : It send 1 coin from this wallet to the target address.
 	-USAGE
 	$ ./sendMoney.sh "A address"
+#5.permitblock.sh
+- permitblock.sh : It will create a block if the manager who can access this system click the button on the kweb site.Then this shell will be operated.
+	-USAGE
+	$ ./permitblock.sh 
+- But this needs to be automatic.So this system is going to use a 'crontab'
+	#How to?
+	- Edit the configuration and then this linux program will adapt immediat		ley If you don't mistake its syntax
+	#ex
+	- */6 * * * * /userPath/permitblock.sh
+	: every 6 min, all day, all week, all month.  
 
 # TO DO
-- distribution.sh : distribute the coins from the manager of elections.
+- show Transaction list and then monitoring thos.

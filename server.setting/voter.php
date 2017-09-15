@@ -1,11 +1,13 @@
 <?php
 //ISSUE : echo $_SERVER['HTTP_USER_AGENT']; -> distinguish app and web
 if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
-{	include_once ("./db/locAs_config.php");
+{
+	include_once ("./db/locAs_config.php");
 } else
 {
 	include_once ("./db/asdb_config.php");
 }
+//else{;}
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
 # VCODE SPLIT POINT

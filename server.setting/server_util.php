@@ -49,6 +49,26 @@ function loginHanlderMsg($_ecode)
       break;
   }
 }
+function retBashMsg($cur_path, $ret)
+{
+  if($ret == 0)
+  {
+      echo "<script>console.log('>>($cur_path)-Exec(shell) is success');</script>";
+  } else
+  {
+      echo "<script>console.log('>>($cur_path)-Exec(shell) is fail or system was operated');</script>";
+  }
+}
+function manModulemsg($value, $message)
+{
+    echo "<script>console.log('$message');</script>";
+    if(count($value))
+    {
+        echo "<script>console.log('>> Operating success');</script>";
+    } else {
+        echo "<script>console.log('>> Operating fail');</script>";
+    }
+}
 function zeroFilter($arr_can)
 {
     global $arr_can;

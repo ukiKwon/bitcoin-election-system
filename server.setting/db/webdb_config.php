@@ -14,7 +14,5 @@ if (!$link_kweb)
    echo mysqli_connect_error();
    exit();
 }
-
-
 mysqli_set_charset($link_kweb,"utf8");
 ?>
