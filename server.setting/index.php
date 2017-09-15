@@ -90,10 +90,7 @@ else
 mysqli_close($link_kas);
 ?>
 <?php
-echo "js-mang Ham?";
-//echo $_SERVER['HTTP_USER_AGENT'];
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
-//var_dump($vApp);
 if($vApp === false) {
 ?>
     <html>
@@ -110,8 +107,9 @@ if($vApp === false) {
 } else
 {
 global $login,$vcode;
+	echo "\n";
 	echo $login;
-	echo "</br>\n";
+	echo "\n";
 	echo $vcode;
 }
 ?>

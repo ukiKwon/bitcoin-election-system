@@ -13,7 +13,14 @@ if(isset($_POST['candidate']))
 
 ?>
 <?php
-include("./db/locWeb_config.php");
+if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
+{
+include_once ("./db/locWeb_config.php");
+}
+else
+{
+include_once ("./db/webdb_config.php");
+}
 include ("./server_util.php");
 
 global $arr_can;

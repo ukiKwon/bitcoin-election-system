@@ -28,7 +28,6 @@ if(isset($_POST['k_json']))
 			# kbk address : 34 bite
 			//$data_object=json_decode($_POST['k_json']);// parse to php object
 			$data_array=json_decode($_POST['k_json'], true);// parse to php array
-			var_dump($data_array);
 			echo "</br>\n";
 			var_dump($data_array);
 			echo "</br>\n";
@@ -42,10 +41,10 @@ if(isset($_POST['k_json']))
 		  #$_kaddr=$data_array["k_json"][1]["vcode"];
 		  $_kaddr=$data_array["kaddr"];
 		  $_vcode=$data_array["vcode"];
-      // split vcode
-    	$_rcode=substr($_vcode, 0, VC['LEN_REG']);
+      			// split vcode
+    			$_rcode=substr($_vcode, 0, VC['LEN_REG']);
 
-      echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
+     			 echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
 
 			# DB checking && get 'index', region index
 			$index=getIndexRegion($link_kas, $_rcode);
@@ -56,7 +55,8 @@ if(isset($_POST['k_json']))
 			$retTovoter=array();
 			for($i=0; $i<count($arr_can); ++$i)
 			{
-					$retTovoter["$arr_can[$i]"] = $arr_caddr[$i];
+					$cname=$arr_can[$i];
+					$retTovoter["$cname"] = $arr_caddr[$i];
 			}
 			$jsonTovoter=json_encode($retTovoter);	//to json
 			$jsonTovoter=json_encode($retTovoter, JSON_UNESCAPED_UNICODE);	//solution : hangul error
@@ -72,7 +72,7 @@ else
 { 	# No Json data
 	  // setting test data
 	  $json_string='{ "sam": [
-						{ "kaddr": "mgfXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" },
+						{ "kaddr": "mofXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" },
 	          { "vcode": "0010m56"}
 	      ]}';
 		# DECODE JSON
@@ -100,10 +100,12 @@ else
 		$retTovoter=array();
 		for($i=0; $i<count($arr_can); ++$i)
 		{
-			$retTovoter["$arr_can[$i]"] = $arr_caddr[$i];
+			$cname=$arr_can[$i];
+			$retTovoter["$cname"] = $arr_caddr[$i];
 		}
 		$jsonTovoter=json_encode($retTovoter);	//to json
 		$jsonTovoter=json_encode($retTovoter, JSON_UNESCAPED_UNICODE);	//solution : hangul error
+		var_dump($jsonTovoter);
 
 }
 # SEND BALLOT(VOTE) : #working
