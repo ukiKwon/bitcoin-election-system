@@ -1,9 +1,13 @@
 <?php
 include_once("./mod_sendTophp.php");
-function manModulemsg($val, $message)
+
+$action=isset($_POST['action'])? $_POST['action'] : "NO ACTION";
+$value=isset($_POST['candidate'])? $_POST['candidate'] : '';
+
+function manModulemsg($value, $message)
 {
     echo "<script>console.log('$message');</script>";
-    if(!$val)
+    if(count($value))
     {
         echo "<script>console.log('>> Operating success');</script>";
     } else {
@@ -17,26 +21,24 @@ function permitb()
     manModulemsg($val, $message);
     exit;
 }
-
 function showtx()
 {
     $message=">> The showtx function is called.";
     manModulemsg($val, $message);
     exit;
 }
-function genaddr()
+function genaddr($value)
 {
     $message=">> The generating addr of candidates is operated.";
-    manModulemsg($val, $message);
+    manModulemsg($value, $message);
     echo "<script>console.log('candidateList :$value');</script>";
-    //$ret=exec("../system.op/getaddressbycandi.ver1.4.sh $value");
+    $ret=system("../system.op/getaddressbycandi.ver1.4.sh $value");
+    echo $ret;
     exit;
 }
 echo "</br><h1>Manager Workspace</h1>";
 if(isset($_POST['action']))
 {
-  $action=isset($_POST['action'])? $_POST['action'] : "NO ACTION";
-  $value=isset($_POST['candidate'])? $_POST['candidate'] : "NO RETURN";
   //echo "<script>console.log('>> action : $action');</script>";
   switch($action)
   {
@@ -47,7 +49,7 @@ if(isset($_POST['action']))
       showtx();
       break;
     case "genaddr":
-      genaddr();
+      genaddr($value);
       break;
     default:
       break;

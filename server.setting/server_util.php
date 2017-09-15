@@ -67,7 +67,7 @@ function setListcanStr($arr_can, $str_cans)
       echo "The candidate list is empty now"."</br>";
     } else
     {
-      for($i=0; $i<count($arr_can); ++$i) {
+      for($i=0; $i<count($arr_can); ++$i) { //TO DO : implode
         $str_cans.=($arr_can[$i]." ");
       }
       echo "Candidates are { ".$str_cans." }</br>";
