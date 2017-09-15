@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <?php
 //ISSUE : echo $_SERVER['HTTP_USER_AGENT']; -> distinguish app and web
 if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
@@ -7,19 +8,18 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 {
 	include_once ("./db/asdb_config.php");
 }
-//else{;}
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
-# VCODE SPLIT POINT
+# VCODE SPLIT POINT 
 $arr_can=array();
 $str_cans="";
 $arr_caddr=array();
 
+
 # DATE && CANDIDATE LIST
 webHeader($arr_can, $str_cans);
+#var_dump($_POST['k_json']);
 
-var_dump($_POST['k_json']);
-echo "</br>\n";
 # processing post data
 if(isset($_POST['k_json']))
 {			# RECEIVE JSON OBJ : FROM VOTERS
@@ -28,29 +28,30 @@ if(isset($_POST['k_json']))
 			# kbk address : 34 bite
 			//$data_object=json_decode($_POST['k_json']);// parse to php object
 			$data_array=json_decode($_POST['k_json'], true);// parse to php array
-			echo "</br>\n";
-			var_dump($data_array);
-			echo "</br>\n";
 			if (json_last_error() > 0)
 			{		// handle error
-		      echo "</br>"."decoding failed\n";
-		      echo json_last_error_msg() . PHP_EOL;
-		  }
+		     		 echo "</br>\n"."decoding failed\n";
+		      		 echo json_last_error_msg() . PHP_EOL;
+		   	}
 			# JSONtoArray
-		  #$_vcode=$data_array["k_json"][0]["kaddr"];
-		  #$_kaddr=$data_array["k_json"][1]["vcode"];
-		  $_kaddr=$data_array["kaddr"];
-		  $_vcode=$data_array["vcode"];
+		  	$_kaddr=$data_array["kaddr"];
+		  	$_vcode=$data_array["vcode"];
+			$_kcans=$data_array["cname"];
       			// split vcode
     			$_rcode=substr($_vcode, 0, VC['LEN_REG']);
-
-     			 echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
-
+     			echo "</br>\n"."_vcode:".$_vcode."</br>\n";echo "_kaddr:".$_kaddr."</br>\n";echo "_rcode:".$_rcode."</br>\n";
+				
 			# DB checking && get 'index', region index
 			$index=getIndexRegion($link_kas, $_rcode);
+			echo "</br>\n"."rcode ------->>index :".$index."</br>\n";
+			
+			# If Voter is will set 
+			$arr_can=explode(",", $_kcans);		
+			var_dump($arr_can);
 			# INDEXING
 			indexingCAddr($arr_can, $arr_caddr, $index);
-
+			#var_dump($arr_can);
+			#var_dump($arr_caddr);
 			# JSON_DATAtoVOTER
 			$retTovoter=array();
 			for($i=0; $i<count($arr_can); ++$i)
@@ -65,7 +66,15 @@ if(isset($_POST['k_json']))
 		# SEND BALLOT(VOTE)
 		$sendBal=exec("../system.op/sendBallot.sh $_kaddr 'GBTV'");
 		if(!$sendBal)
-			echo ">> Ballit is given to you";
+		{
+			#echo "\n>> Ballot is given to you";
+			consoleMsg(">> Ballot is given to you");
+		}
+		else
+		{
+			#echo "\n>> you address is wrong";
+			consoleMsg(">> The voter address is not valid");
+		}
 
 }
 else
@@ -108,17 +117,21 @@ else
 		var_dump($jsonTovoter);
 
 }
+
 # SEND BALLOT(VOTE) : #working
-/*
 $sendBal=exec("../system.op/sendBallot.sh $_kaddr 'GBTV'");
 if(!$sendBal)
-		echo ">> Ballit is given to you";
-else {
-		echo ">> You address is wrong\n";
+{
+		#echo "\n>> Ballit is given to you";
+		consoleMsg(">>Ballot is given to you");
 }
-*/
+else {
+		#echo "\n>> You address is wrong";
+		consoleMsg(">> The voter address is not valid");
+}
 # SAVE VOTER INFO INTO WEBDB
 setVoterInfo($link_kweb, $_kaddr, $_vcode);
+
 ?>
 <?php
 //echo $_SERVER['HTTP_USER_AGENT'];
@@ -139,6 +152,7 @@ if($vApp === false)
 } else
 {		#Device == App
 		global $jsonTovoter;
+		echo "</br>\n";
 		echo $jsonTovoter;
 }
 ?>

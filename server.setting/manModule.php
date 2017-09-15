@@ -21,8 +21,8 @@ function showtx()
 }
 function genaddr($value)
 {
-    $message=">> The generating addr of candidates is operated.";
-    echo "<script>console.log('candidateList :$value');</script>";
+    $message="\n>> The generating addr of candidates is operated.";
+    echo "<script>console.log('\ncandidateList :$value');</script>";
     $ret=exec("../system.op/getaddressbycandi.sh $value");
     manModulemsg($value, $message);
     retBashMsg($_SERVER['SCRIPT_FILENAME'], $ret);

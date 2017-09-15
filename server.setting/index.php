@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <?php
 # SET DB
 if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
@@ -27,6 +28,7 @@ if(isset($_POST['u_name']))
             {
                   $login=4001;
                   //loginHanlderMsg($login);
+
             }   # Failed due to wrong register id
             else
             {     # Registered
@@ -65,6 +67,8 @@ if(isset($_POST['u_name']))
                                 $login=1401;
 				                        #loginHanlderMsg($login);
                                 $vcode=sendVCode($link_kas, $u_reg);
+				$cans_str=implode(",", $list_can);
+				echo $cans_str;
                                 sendTophp($list_can,'./voter.php');
 
                                 //echo("<script>location.replace('./voter.php');</script>");
@@ -106,10 +110,12 @@ if($vApp === false) {
 <?php
 } else
 {
-global $login,$vcode;
+global $login,$vcode, $cans_str;
 	echo "\n";
 	echo $login;
 	echo "\n";
 	echo $vcode;
+	echo "\n";
+	echo $cans_str;
 }
 ?>

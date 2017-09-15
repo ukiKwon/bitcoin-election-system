@@ -7,6 +7,8 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 	include_once ("./db/webdb_config.php");
 }
 include_once("./mysql_util.php");
+include_once("./server_util.php");
+
 # SPIT INFO
 //vcode : This is about the voter info
 define ('VC', [
@@ -17,6 +19,8 @@ define ('VC', [
 # COMMENT
 // give a ballot to the voter
 define("GBTV", "give Ballot");
+
+
 // count the index about the region from the asdb table
 function getIndexRegion($link_kas, $_rcode)
 {
@@ -41,20 +45,25 @@ function getIndexRegion($link_kas, $_rcode)
 function indexingCAddr($arr_can, $arr_caddr, $index)
 {
     global $arr_caddr;
+    #echo "</br>\n"."This main algo(indexing)part"."</br>\n";
+    #echo "</br>\n"."candidate are ";print_r($arr_can);echo "</br>\n";
+    #echo "</br>\n"."region is :".$index."</br>\n";
     for($i=0; $i< count($arr_can); $i++)
     {
       $name=$arr_can[$i];
-      $var=exec("../system.op/getadd.sh $name $index"); // getaddress by account
-      array_push($arr_caddr, $var);
+      $ret=exec("../system.op/getadd.sh $name $index"); // getaddress by account
+      retBashMsg($_SERVER['SCRIPT_NAME'], $ret);
+      array_push($arr_caddr, $ret);
     }
     // check the address of candidates
     if(!count($arr_caddr))
     { // fail
-      echo "<script>console.log('>> sytem is not ready');</script>";
+      echo "</br>\n"."<script>console.log('\n>> sytem is not ready');</script>";
     }
     else
     { // success : get the specified address by account along by the voter region
-      //print_r($arr_caddr)
+      echo "</br>\n"."<script>console.log('\n>> sytem is ready');</script>";
+      #print_r($arr_caddr)
       ;
     }
 }

@@ -4,8 +4,10 @@
 
 declare -a array_list
 
-conf_path=/home/ubuntu/bitcoin/src/uki
-cmd_getadd='bitcoin-cli -regtest -datadir='$conf_path' getaddressesbyaccount'
+conf_path='/home/ubuntu/bitcoin/src/uki'
+exec_path='/usr/local/bin/'
+
+cmd_getadd=''$exec_path'bitcoin-cli -regtest -datadir='$conf_path' getaddressesbyaccount'
 
 # made by Mushu92
 function get_canaddrs() { #(working)
