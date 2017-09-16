@@ -1,25 +1,22 @@
 <?php
-//session_start();
+session_start();
 $arr_can = array();
 $str_cans="";
 
 if(isset($_POST['candidate']))
 {
-  //echo $_POST['candidate'];
   $arr_can=explode(' ',$_POST['candidate']);
 } else {
   echo "NO MESSAGE IS DELIVERED"."</br></br>";
 }
-
 ?>
 <?php
 if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 {
-include_once ("./db/locWeb_config.php");
-}
-else
+    include_once ("./db/locWeb_config.php");
+} else
 {
-include_once ("./db/webdb_config.php");
+    include_once ("./db/webdb_config.php");
 }
 include ("./server_util.php");
 
@@ -33,7 +30,7 @@ webHeader($arr_can, $str_cans);
 
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
 
-if(!$vApp) {
+if($vApp === false) {
 ?>
   <html>
     <head>
@@ -51,7 +48,6 @@ if(!$vApp) {
         <input type="hidden" id="candidate" name="candidate" value="<?php echo $str_cans; ?>"/></br>
       </form>
       </ul>
-
     </body>
   </html>
 <?php

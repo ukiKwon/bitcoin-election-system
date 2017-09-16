@@ -1,6 +1,37 @@
 <?php
 date_default_timezone_set('Asia/Seoul');
+/* getvcode : To send a string to the voter in response to the request */
+function getvcode($link_kas, $_regisid)
+{
+  //vcode_str : return value
+  global $link_kas;
+  $vcode_str="";
+  //step1.Load the specified data from tabled 'kdb' matching with this voter.
+  $sql_vt = "SELECT region, sex, age FROM kdb WHERE regisid = '$_regisid'";
+  $res_vt = mysqli_query($link_kas, $sql_vt);
+  if($res_vt)
+  {   //step2.voter data is found
+      $row_vt = mysqli_fetch_array($res_vt);
+      //Search the region code from regcode matching with $row['region']
+      $target_reg=$row_vt['region'];
+      //step3.Get the region code from table regcode
+      $sql_vc = "SELECT rcode FROM regcode WHERE region = '$target_reg'";
+      $res_vc = mysqli_query($link_kas, $sql_vc);
+      if($res_vc)
+      {   //step4.region code is found
+          $row_vc = mysqli_fetch_array($res_vc);
+          //step5.concatenation
+          $vcode_str.=$row_vc['rcode'];
+          $vcode_str.=$row_vt['sex'];
+          $vcode_str.=$row_vt['age'];
+      }
+      mysqli_free_result($res_vt);
+      mysqli_free_result($res_vc);
+  }
+  #echo "$vcode_str\n";
+  return "$vcode_str";
 
+}
 function sizeOfpost($arr_can)
 {
     global $arr_can;
@@ -67,49 +98,48 @@ function loginHanlderMsg($_ecode)
   switch($_ecode)
   {
     case 4001:
-	consoleMsg("($_ecode)# Failed due to wrong register id");
-      break;
+        consoleMsg("($_ecode)# Failed due to wrong register id");
+        break;
     case 1100:
-	consoleMsg("($_ecode)# This isa Manager");
-      break;
+        consoleMsg("($_ecode)# This isa Manager");
+        break;
     case 1001:
-	consoleMsg("($_ecode)# Candidates doesn't exist in kdb");
-      break;
+        consoleMsg("($_ecode)# Candidates doesn't exist in kdb");
+        break;
     case 1401:
-	consoleMsg("($_ecode)# Not a Manager, but voter");
-      break;
+        consoleMsg("($_ecode)# Not a Manager, but voter");
+        break;
     case 4000:
-	consoleMsg("($_ecode)# Failed due to unregistered named");
-      break;
+        consoleMsg("($_ecode)# Failed due to unregistered named");
+        break;
     defalut :
-	consoleMsg("($_ecode)# Something wrong : Login parameter");
-      break;
+        consoleMsg("($_ecode)# Something wrong : Login parameter");
+        break;
   }
 }
 function consoleMsg($msg)
 {
 	echo "</br>\n"."<script>console.log('$msg');</script>"."</br>\n";
 }
-function retBashMsg($cur_path, $ret)
+function retBashMsg($_cur_path, $_ret)
 {
-  $msg=$cur_path.">> Exec(shell) is";
-  if($ret == 0)
-  {
-      $msg.="success";
-      consoleMsg($msg);
-    
-  } else
-  {
-      $msg.="fail or the 'system', not 'exec', was called"; 
-      consoleMsg($msg);
-  }
-}
-function manModulemsg($value, $message)
-{
-    consoleMsg($message); 
-    if(count($value))
+    $msg=$_cur_path.">> Exec(shell) is";
+    if($_ret == 0)
     {
-	consoleMsg(">> Operating success");
+        $msg.=" fail or the system, not exec, was called";
+        consoleMsg($msg);
+    } else
+    {
+        $msg.="success";
+        consoleMsg($msg);
+    }
+}
+function manModulemsg($_value, $_msg)
+{
+    consoleMsg($_msg);
+    if(count($_value))
+    {
+        consoleMsg(">> Operating success");
     } else {
         consoleMsg(">> Operating fail");
     }
@@ -117,7 +147,8 @@ function manModulemsg($value, $message)
 function zeroFilter($arr_can)
 {
     global $arr_can;
-    foreach ($arr_can as $key => $val) {
+    foreach ($arr_can as $key => $val)
+    {
         if($val == '')
         {
             unset($arr_can[$key]);

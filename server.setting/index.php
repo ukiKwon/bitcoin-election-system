@@ -11,7 +11,6 @@ else
 }
 //else{;}
 include_once ("./server_util.php");
-include_once ("./sendVcode.php");
 include_once ("./mod_sendTophp.php");
 
 //echo $_POST['u_name'];
@@ -66,7 +65,7 @@ if(isset($_POST['u_name']))
                         {     # Not a manager, but voter
                                 $login=1401;
 				                        #loginHanlderMsg($login);
-                                $vcode=sendVCode($link_kas, $u_reg);
+                                $vcode=getvcode($link_kas, $u_reg);
 				$cans_str=implode(",", $list_can);
 				echo $cans_str;
                                 sendTophp($list_can,'./voter.php');

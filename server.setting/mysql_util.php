@@ -1,13 +1,14 @@
 <?php
+include_once ("./server_util.php");
 function mysqliMsg($e)
 {
   switch($e)
   {
     case 1 :
-      echo "<script> console.log('>> This voter can vote.'); </script>\n";
+      consoleMsg(">> This voter can vote.");
       break;
     case 1062 :
-      echo "<script> console.log('>> This voter is Already voted'); </script>\n";
+      consoleMsg(">> This voter is Already voted");
       break;
     default :
       break;
