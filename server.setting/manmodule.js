@@ -6,7 +6,7 @@ $(document).ready(function(){
            type:"POST",
            url:"./manModule.php",
            dataType:'json',
-           data:{'action': syncdb},
+           data:{'action': buttonVal},
            success:function(data) {
                alert ("success.");
            }
