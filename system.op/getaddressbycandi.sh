@@ -9,8 +9,8 @@ declare -a REQ_CANDIDATE_LIST #the argument list of candidates
 declare -a CUR_CANDIDATE_LIST #the number of current accounts
 declare -i ACCOUNT_REGION=11 # {서울,경기,대전,강원,전북,전남,대구,부산,울산,경남,제주}
 
-#conf_path='/home/ubuntu/bitcoin/src/uki'
-conf_path='/home/uki408/Documents/bitcoin/src/uki'
+conf_path='/home/ubuntu/bitcoin/src/uki'
+#conf_path='/home/uki408/Documents/bitcoin/src/uki'
 exec_path='/usr/local/bin/'
 
 #DEFINE command

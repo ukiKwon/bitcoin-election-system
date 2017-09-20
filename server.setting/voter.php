@@ -52,14 +52,13 @@ if(isset($_POST['k_json']))
 
 			# JSON_DATA for VOTER
 			$candidateJson=setJsonfrom($arr_can, $arr_caddr);
-
 }
 else
 { 	# No Json data
 	  // setting test data
 	  $json_string='{ "sam": [
 								{ "kaddr": "mifXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" },
-	          		{ "vcode": "0011m55"}
+	          		{ "vcode": "0001m55"}
 	      				]}';
 		# DECODE JSON
 	  #$data_object=json_decode($json_string);// parse to php object
@@ -74,18 +73,17 @@ else
 		$_kaddr=$data_array["sam"][0]["kaddr"];
 		$_vcode=$data_array["sam"][1]["vcode"];
 		# SPLIT vcode
-	  $_rcode=substr($_vcode, 0, VC['LEN_REG']);
-	  //echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
+	  	$_rcode=substr($_vcode, 0, VC['LEN_REG']);
+	  	//echo "_vcode:".$_vcode."</br>";echo "_kaddr:".$_kaddr."</br>";echo "_rcode:".$_rcode."</br>";
 
 		# DB checking && get 'index', region index
-	  $index=getIndexRegion($link_kas, $_rcode);
+	  	$index=getIndexRegion($link_kas, $_rcode);
 
 		# INDEXING
 		indexingCAddr($arr_can, $arr_caddr, $index);
 
 		# JSON_DATA for VOTER
 		$candidateJson=setJsonfrom($arr_can, $arr_caddr);
-		var_dump($candidateJson);
 }
 # SAVE VOTER INFO INTO WEBDB
 $_ballot=setVoterInfo($link_kweb, $_kaddr, $_vcode);
@@ -111,8 +109,8 @@ if($vApp === false)
 <?php
 } else
 {		#Device == App
-		global $jsonTovoter;
+		global $candidateJson;
 		echo "\n";
-		echo $jsonTovoter;
+		echo $candidateJson;
 }
 ?>

@@ -13,7 +13,7 @@ include_once("./server_util.php");
 //vcode : This is about the voter info
 define ('VC', [
 		'LEN_REG'=>4,
-  	'LEN_SEX'=>1,
+  		'LEN_SEX'=>1,
 		'LEN_AGE'=>3,
 ]);
 # COMMENT
@@ -30,10 +30,10 @@ function getIndexRegion($link_kas, $_rcode)
     {		# Valid name -> NOT PASSED YET
         while($row_as=mysqli_fetch_array($res_as))
         {
-	          if(!strcmp($row_as[0], $_rcode))
-	          {
-	            	break;
-	          }
+	        if(!strcmp($row_as[0], $_rcode))
+	        {
+	         	break;
+	        }
           	++$index;
         }
     }
@@ -101,7 +101,6 @@ function setJsonfrom($arr_can, $arr_caddr)
 function sendBallot($_kaddr_)
 {
 		$sendbal=exec("../system.op/sendBallot.sh $_kaddr_ 'GBTV'");
-		echo "sendbal :".$sendbal;
 		if(!strcmp($sendbal, "Invalid Bitcoin address"))
 		{
 				consoleMsg(">> Ballot is given to you");
@@ -114,7 +113,8 @@ function sendBallot($_kaddr_)
 }
 function _sendBallot($_bool, $_kaddr)
 {
-		if($_bool === true)
+		$callBallot="1";
+		if(!strcmp($_bool, $callBallot))
 		{
 				sendBallot($_kaddr);
 		} else

@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Seoul');
+
 /* getvcode : To send a string to the voter in response to the request */
 function getvcode($link_kas, $_regisid)
 {
@@ -12,8 +13,10 @@ function getvcode($link_kas, $_regisid)
   if($res_vt)
   {   //step2.voter data is found
       $row_vt = mysqli_fetch_array($res_vt);
+
       //Search the region code from regcode matching with $row['region']
       $target_reg=$row_vt['region'];
+
       //step3.Get the region code from table regcode
       $sql_vc = "SELECT rcode FROM regcode WHERE region = '$target_reg'";
       $res_vc = mysqli_query($link_kas, $sql_vc);
@@ -28,7 +31,6 @@ function getvcode($link_kas, $_regisid)
       mysqli_free_result($res_vt);
       mysqli_free_result($res_vc);
   }
-  #echo "$vcode_str\n";
   return "$vcode_str";
 
 }
@@ -119,7 +121,7 @@ function loginHanlderMsg($_ecode)
 }
 function consoleMsg($msg)
 {
-	echo "</br>\n"."<script>console.log('$msg');</script>"."</br>\n";
+	echo "\n"."<script>console.log('$msg');</script>"."\n";
 }
 function retBashMsg($_cur_path, $_ret)
 {
