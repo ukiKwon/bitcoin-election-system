@@ -1,49 +1,50 @@
 <?php
+include_once("./mod_sendTophp.php");
+include_once("./server_util.php");
 
-$can_arr = array();
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'syncdb':
-            syncdb();
-            break;
-        case 'concan':
-            concan();
-            break;
-        case 'gen':
-            gen();
-            break;
-    }
-}
-if (isset($_POST['candidate'])) {
-   array_push($can_arr, $_POST['candidate']);
-}
+$action=isset($_POST['action'])? $_POST['action'] : "NO ACTION";
+$value=isset($_POST['candidate'])? $_POST['candidate'] : '';
 
-function syncdb() {
-    $message="The select function is called.";
-    #echo "The select function is called.";
-    echo "<html>\n";
-    echo "<body onload='document.form2.submit();'>\n";
-    echo "<form name='form2' method='post' action='./manager.php'>\n";
-    echo "<input type='hidden' name='$message' value='$message'>\n";
-    echo "</form>\n";
-    echo "</body>\n";
-    echo "</html>\n";
+function permitb()
+{
+    $message=">> The permitb function is called.";
+    $ret=exec("../system.op/permitblock.sh");
+    manModulemsg($ret, $message);
+    retBashMsg($_SERVER['SCRIPT_FILENAME'], $ret);
     exit;
 }
-
-function concan() {
-    $message="The insert function is called.";
-    echo "The insert function is called.";
-    echo "<body onload='document.form2.submit();'>\n";
-    echo "<form name='form2' method='post' action='./manager.php'>\n";
-    echo "<input type='hidden' name='$message' value='$message'>\n";
-    echo "</form>\n";
+function showtx()
+{
+    $message=">> The showtx function is called.";
+    manModulemsg($val, $message);
     exit;
 }
-function gen() {
-    $message="The gen function is called.";
-    #echo "The gen function is called.";
-    system("/var/www/html/KBK_election/system.op/getaddressbycandi.sh '$can_arr'");
+function genaddr($value)
+{
+    $message="\n>> The generating addr of candidates is operated.";
+    echo "<script>console.log('\ncandidateList :$value');</script>";
+    $ret=exec("../system.op/getaddressbycandi.sh $value");
+    manModulemsg($value, $message);
+    retBashMsg($_SERVER['SCRIPT_FILENAME'], $ret);
     exit;
+}
+echo "</br><h1>Manager Workspace</h1>";
+if(isset($_POST['action']))
+{
+  //echo "<script>console.log('>> action : $action');</script>";
+  switch($action)
+  {
+    case "permitb" :
+      permitb();
+      break;
+    case "showtx" :
+      showtx();
+      break;
+    case "genaddr":
+      genaddr($value);
+      break;
+    default:
+      break;
+  }
 }
 ?>
