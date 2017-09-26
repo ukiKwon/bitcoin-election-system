@@ -10,12 +10,12 @@ if(!strcmp($_SERVER['SERVER_NAME'], "localhost"))
 }
 include_once ("./server_util.php");
 include_once ("./voter_util.php");
+include_once ("./mod_sendTophp.php");
 
 # VCODE SPLIT POINT
 $arr_can=array();
 $str_cans="";
 $arr_caddr=array();
-
 # DATE && CANDIDATE LIST
 webHeader($arr_can, $str_cans);
 
@@ -57,7 +57,7 @@ else
 { 	# No Json data
 	  // setting test data
 	  $json_string='{ "sam": [
-								{ "kaddr": "mifXPsikc7A6pVCDLzgfdba7FS1GcvY6Qc" },
+								{ "kaddr": "mwtBWJKsuC16MkokmAzQPPiriZe6PyuLfR" },
 	          		{ "vcode": "0001m55"}
 	      				]}';
 		# DECODE JSON
@@ -94,17 +94,39 @@ _sendBallot($_ballot, $_kaddr);
 ?>
 <?php
 $vApp=strpos($_SERVER['HTTP_USER_AGENT'], "Java");
+//$str_can=implode(", ", $arr_can); //array to string
+
+global $arr_can;
+$str_can=implode(" ", $arr_can);//array to string
+//$sam=array();
+//array_push($sam['candidate'][], $arr_can);
+var_dump($str_can);
+//$res_can=json_encode($sam, JSON_UNESCAPED_UNICODE);	//solution : hangul error
+//var_dump($sam);
+//var_dump($res_can);
+//echo $res_can;
 
 if($vApp === false)
 {		#Device == web
 ?>
 		<html>
-			<head><h1>This is a page for a voter</h1></head>
+			<head>
+					<meta charset="utf-8">
+					<script src="./lib/jquery-3.2.1.min.js"></script>
+					<script src="./voter.js" type="text/javascript"></script>
+					<h1>This is a page for a voter</h1>
+			</head>
 			<body>
 				<h4>SEE A ELECTION</h4>
-				<input name="showRate" type="submit" action='<?php $_PHPSELF ?>' value="k_rate"/>
-				<input name="logout" type="submit" action="./logout.php" value="logout"/>
+				<form method="POST" action="./result/result.php">
+						<input type="submit" name="showRate" id="showRate" value="k_rate"/>
+						<input type="hidden" name="candidate" id="candidate" value="<?php echo $str_can; ?>"/>
+						<!-- <input name="logout" type="submit" action="./logout.php" value="logout"/> -->
+				</form>
 			</body>
+			<script>
+
+			</script>
 		</html>
 <?php
 } else

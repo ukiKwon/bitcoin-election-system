@@ -4,8 +4,8 @@
 
 declare -a array_list
 
-conf_path='/home/ubuntu/bitcoin/src/uki'
-#conf_path='/home/uki408/Documents/bitcoin/src/uki'
+#conf_path='/home/ubuntu/bitcoin/src/uki'
+conf_path='/home/uki408/Documents/bitcoin/src/uki'
 exec_path='/usr/local/bin/'
 
 cmd_getadd=''$exec_path'bitcoin-cli -regtest -datadir='$conf_path' getaddressesbyaccount'
@@ -23,9 +23,9 @@ function get_canaddr() {
 	array_list=($array_list) #string to array
 	sz=${#array_list[@]}
 	if [ $sz -ne 0 ]; then
-		echo ${array_list[$2]}
+		echo "${array_list[$2]}"
 	else
-		echo $sz
+		echo "$sz"
 	fi
 }
 # get_canaddrs $1

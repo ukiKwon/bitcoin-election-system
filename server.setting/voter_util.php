@@ -13,7 +13,7 @@ include_once("./server_util.php");
 //vcode : This is about the voter info
 define ('VC', [
 		'LEN_REG'=>4,
-  		'LEN_SEX'=>1,
+		'LEN_SEX'=>1,
 		'LEN_AGE'=>3,
 ]);
 # COMMENT
@@ -21,6 +21,21 @@ define ('VC', [
 define("GBTV", "give Ballot");
 
 // count the index about the region from the asdb table
+function sendResult()
+{
+	if(isset($_POST))
+		echo "sendResult"."</br>";
+	global $arr_can;
+
+	$region=array("busan.php", "daejeon.php", "gwangju.php", "seoul.php", "total.php");
+	$res_path="/var/www/html/KBK_election/server.setting/result/region/";
+	for($i=0; $i<count($region); ++$i)
+	{
+			$target_path=$res_path.$region[i];
+			consoleMsg("$target_path");
+			sendTophp($arr_can, $target_path);
+	}
+}
 function getIndexRegion($link_kas, $_rcode)
 {
     $sql_as = "SELECT rcode FROM regcode order by rcode ASC";
@@ -94,7 +109,7 @@ function setJsonfrom($arr_can, $arr_caddr)
 				$cname=$arr_can[$i];
 				$retTovoter["$cname"] = $arr_caddr[$i];
 		}
-		$jsonTovoter=json_encode($retTovoter);	//to json
+		//$jsonTovoter=json_encode($retTovoter);	//to json
 		$jsonTovoter=json_encode($retTovoter, JSON_UNESCAPED_UNICODE);	//solution : hangul error
 		return "$jsonTovoter";
 }

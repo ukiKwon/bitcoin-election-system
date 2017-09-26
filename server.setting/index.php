@@ -66,8 +66,8 @@ if(isset($_POST['u_name']))
                                 $login=1401;
 				                        #loginHanlderMsg($login);
                                 $vcode=getvcode($link_kas, $u_reg);
-				$cans_str=implode(",", $list_can);
-				echo $cans_str;
+                        				$cans_str=implode(",", $list_can);
+                        				echo $cans_str;
                                 sendTophp($list_can,'./voter.php');
 
                                 //echo("<script>location.replace('./voter.php');</script>");
