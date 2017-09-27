@@ -1,6 +1,9 @@
 <?php
 header('Content-Type: application/json');
-
+/*
+$name=explode(" ", $_POST['candidate']);
+var_dump($name);
+*/
 $name=array("문재인", "박근혜");
 $Final=array();
 

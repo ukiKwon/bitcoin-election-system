@@ -1,15 +1,3 @@
-<?php
-//include_once ("../mod_sendTophp.php");
-
-# JSONtoArray
-if(isset($_POST['candidate']))
-{
-	$str_can=$_POST["candidate"];
-	echo $str_can;
-} else {
-	echo "NO POST";
-}
-?>
 <!DOCTYPE HTML>
 <!--
 	Big Picture by HTML5 UP

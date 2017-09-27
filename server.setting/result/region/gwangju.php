@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-
 /*
 $name=explode(" ", $_POST['candidate']);
 var_dump($name);
