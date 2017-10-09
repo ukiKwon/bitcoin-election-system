@@ -1,5 +1,5 @@
 # project : KBK_ELECTION
-# last update : 2017-08-15
+# last update : 2017-09-20
 # writer : uki408
 
 # Not completed yet.
@@ -14,9 +14,7 @@
 
 # Plan to do 
 
-- Making a folder in shell.
-
-- And kind of configuration things.
+- the web or Apps connecting to the Main system.
 
 # NOTICE
 

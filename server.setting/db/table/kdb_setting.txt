@@ -1,0 +1,14 @@
+CREATE TABLE kdb ( 
+name varchar(32) NOT NULL, 
+regisid varchar(15) NOT NULL,
+sex varchar(1) NOT NULL, 
+age TINYINT NOT NULL, 
+region varchar(32) NOT NULL,
+pubkey varchar(1024) default 0,
+login_date datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+manager varchar(1) default 0,
+candidate varchar(1) default 0,
+PRIMARY KEY (regisId),
+FOREIGN KEY(region)
+REFERENCES regcode(region)
+);

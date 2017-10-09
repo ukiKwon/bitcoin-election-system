@@ -1,0 +1,9 @@
+create table voter (
+kaddr varchar(34) NOT NULL,
+vote_date datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+region varchar(32) NOT NULL,
+sex varchar(1) NOT NULL,
+age TINYINT NOT NULL,
+
+PRIMARY KEY(kaddr)
+);
