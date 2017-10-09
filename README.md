@@ -1,21 +1,21 @@
 # project : KBK_ELECTION
-# last update : 2017-09-20
+# last update : 2017-10-09
 # writer : uki408
 
-# Not completed yet.
+# Essential factor 
+- Essential Development Environment
+  (1) APM
+  (2) mysql
+  (3) bitcoin opensource
+  
+# system setting
+- This project is based on Bitcoin open source. So you have to install bitcoin(https://github.com/bitcoin/bitcoin.git). We don't explain that Install guide.
 
-# The New
-- Issues are registered!!! Check these out!
+- After the intallation is done, move '/system.op/bitcmd/*' into 'userPath/bitcoin/src/'. The contents is the shell script commanding the bitcoind, like start, stop and etc command.
 
-# How to use? 
-- As you see, the shell command is a simple yet. It is based on regtest in bitcoind. So this shell just use it.
+  - The shell script must be modified because this project is not supported the completed automake. So see the script below.
+  
 
-- Note that you should make a new diretory in this shell, default is 'uki' Or just use ~/.bitcoin/. But you have to delete 'datadir' tag!!
+# web setting
 
-# Plan to do 
-
-- the web or Apps connecting to the Main system.
-
-# NOTICE
-
-- Out project is based on bitcoin.So The first you have to do is install bitcoin. I hope you make it. Thank you
+# mysql setting
