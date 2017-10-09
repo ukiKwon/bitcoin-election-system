@@ -30,7 +30,7 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + 'ǥ' + ')';;
+                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + '표' + ')';;
                     }
                 },
 
@@ -43,7 +43,7 @@
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + 'ǥ' + ')';
+                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + '표' + ')';
                             }
                         },
                         showInLegend: true
@@ -73,7 +73,7 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + 'ǥ' + ')';;
+                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + '표' + ')';;
                     }
                 },
 
@@ -86,7 +86,7 @@
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + 'ǥ' + ')';
+                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + '표' + ')';
                             }
                         },
                         showInLegend: true
@@ -115,7 +115,7 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + 'ǥ' + ')';;
+                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + '표 + ')';;
                     }
                 },
 
@@ -128,7 +128,7 @@
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + 'ǥ' + ')';
+                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + '표 + ')';
                             }
                         },
                         showInLegend: true
@@ -157,7 +157,7 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + 'ǥ' + ')';;
+                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + '표 + ')';;
                     }
                 },
 
@@ -170,7 +170,7 @@
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + 'ǥ' + ')';
+                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + '표 + ')';
                             }
                         },
                         showInLegend: true
@@ -199,7 +199,7 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + 'ǥ' + ')';;
+                        return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %' + '<br>  (' + this.y + '표 + ')';;
                     }
                 },
 
@@ -212,7 +212,7 @@
                             color: '#000000',
                             connectorColor: '#000000',
                             formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + 'ǥ' + ')';
+                                return '<b>' + this.point.name + '</b>: ' + this.percentage.toFixed(2) + ' %' + '<br>  (' + this.y + '표 + ')';
                             }
                         },
                         showInLegend: true
