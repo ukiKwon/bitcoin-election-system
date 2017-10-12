@@ -16,8 +16,8 @@
 
   - The shell script must be modified because this project is not supported the completed automake. So see the script     'kbk'below.
   
-     #!/bin/bash
-     bitcoin-cli -regtest -datadir=uki $1 $2 $3 $4
+        #!/bin/bash
+        bitcoin-cli -regtest -datadir=uki $1 $2 $3 $4
      
      As you see, the default directory is 'uki'. So this have to be modified. The others is as same as 'kbk'. We feel sorry these unconveniences.
      
