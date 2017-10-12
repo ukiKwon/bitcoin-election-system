@@ -1,6 +1,7 @@
 # project : KBK_ELECTION
-# last update : 2017-10-09
+# last update : 2017-10-13
 # writer : uki408
+# email : snrndi4521@gmail.com
 
 # Essential factor 
 - Essential Development Environment
@@ -30,7 +31,16 @@
   - system.op : the shell script directory executed by 'server.setting'.
     - All the script has 'conf_path' meaning these script path. so If the current path is dirrente from you path, Changes those rightly.
 
-
+- See, /server.setting/db/. There are 'x_config.php'. These are the database configuration which you will use. 
+ 
+      $db_user='root'
+      $db_pwd='kbkelection'
+      $db_name='kbkdb'
+ 
+  so modify those as your configuration. I recommand that change the password only because it is the shortest corrective actions.
+  
 # mysql setting
 
-- Currently, We uses 2 databaes. The configuration contents 
+- Currently, We uses 2 databaes. The configuration contents 'kbkdb','kwebdb'.Literally, 'kwebdb' is used for 'web' to check the voter login history and prevent the duplicated vote. The 'kbkdb' originally should have benn set on AS(Authentication server), but it's doesn't. I think it's the right place where that database have to be on AS. if you can then do like that.
+
+- The table properties  and the sample data are on /server.setting/db/table/. Check these out.
