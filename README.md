@@ -1,6 +1,6 @@
-# project : KBK_ELECTION
-# last update : 2017-10-13
-#email : snrndi4521@gmail.com
+# Description
+
+- This is a election system based on bitcoin system. There are lots of problem yet but we indend to develop this prototype.
 
 # Essential factor 
 - Essential Development Environment
@@ -43,3 +43,8 @@
 - Currently, We uses 2 databaes. The configuration contents 'kbkdb','kwebdb'.Literally, 'kwebdb' is used for 'web' to check the voter login history and prevent the duplicated vote. The 'kbkdb' originally should have benn set on AS(Authentication server), but it's doesn't. I think it's the right place where that database have to be on AS. if you can then do like that.
 
 - The table properties  and the sample data are on /server.setting/db/table/. Check these out.
+-
+#project : KBK_ELECTION
+#last update : 2017-10-13
+#email : snrndi4521@gmail.com
+
