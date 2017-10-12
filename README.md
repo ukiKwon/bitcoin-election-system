@@ -1,6 +1,6 @@
 # project : KBK_ELECTION
 # last update : 2017-10-13
-# email : snrndi4521@gmail.com
+#email : snrndi4521@gmail.com
 
 # Essential factor 
 - Essential Development Environment
