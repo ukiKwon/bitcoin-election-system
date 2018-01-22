@@ -43,7 +43,7 @@
 - Currently, We uses 2 databaes. The configuration contents 'kbkdb','kwebdb'.Literally, 'kwebdb' is used for 'web' to check the voter login history and prevent the duplicated vote. The 'kbkdb' originally should have benn set on AS(Authentication server), but it's doesn't. I think it's the right place where that database have to be on AS. if you can then do like that.
 
 - The table properties  and the sample data are on /server.setting/db/table/. Check these out.
--
+
 # ETC
  - project : KBK_ELECTION
  - last update : 2017-10-13
