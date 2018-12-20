@@ -1,6 +1,6 @@
 # Description
 
-- This is a election system based on bitcoin system. There are lots of problem yet but we indend to develop this prototype.
+- This is a election system based on bitcoin system. There are some problems yet but we indend to develop this prototype.
 
 # Essential factor 
 - Essential Development Environment
